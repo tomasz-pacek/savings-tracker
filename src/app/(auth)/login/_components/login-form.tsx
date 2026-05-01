@@ -46,8 +46,8 @@ export default function LoginForm() {
         onRequest: () => setIsSubmitting(true),
         onSuccess: () => {
           setIsSubmitting(false);
-          toast("User logged in successfully!");
           router.push("/");
+          toast("User logged in successfully!");
         },
         onError: (ctx) => {
           setIsSubmitting(false);

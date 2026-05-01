@@ -51,8 +51,8 @@ export default function RegisterForm() {
         onRequest: () => setIsSubmitting(true),
         onSuccess: () => {
           setIsSubmitting(false);
-          toast("User registered successfully!");
           router.push("/");
+          toast("User registered successfully!");
         },
         onError: (ctx) => {
           setIsSubmitting(false);
