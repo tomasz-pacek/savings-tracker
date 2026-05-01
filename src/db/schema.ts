@@ -80,8 +80,8 @@ export const verification = pgTable(
   (table) => [index("verification_identifier_idx").on(table.identifier)],
 );
 
-export const goals = pgTable(
-  "goals",
+export const goal = pgTable(
+  "goal",
   {
     id: text("id").primaryKey(),
     userId: text("user_id")
@@ -101,13 +101,29 @@ export const goals = pgTable(
     createdAt: timestamp("created_at").defaultNow().notNull(),
     deadline: timestamp("deadline"),
   },
-  (table) => [index("goals_userId_idx").on(table.userId)],
+  (table) => [index("goal_userId_idx").on(table.userId)],
 );
+
+export const goalDeposits = pgTable("goal_deposits", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  goalId: text("goal_id")
+    .notNull()
+    .references(() => goal.id),
+  amount: numeric("amount", {
+    precision: 12,
+    scale: 2,
+  }).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
 
 export const userRelations = relations(user, ({ many }) => ({
   sessions: many(session),
   accounts: many(account),
-  goals: many(goals),
+  goals: many(goal),
+  deposits: many(goalDeposits),
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({
@@ -124,9 +140,22 @@ export const accountRelations = relations(account, ({ one }) => ({
   }),
 }));
 
-export const goalsRelations = relations(goals, ({ one }) => ({
+export const goalRelations = relations(goal, ({ one, many }) => ({
   user: one(user, {
-    fields: [goals.userId],
+    fields: [goal.userId],
     references: [user.id],
+  }),
+  deposits: many(goalDeposits),
+}));
+
+export const goalDepositsRelations = relations(goalDeposits, ({ one }) => ({
+  user: one(user, {
+    fields: [goalDeposits.userId],
+    references: [user.id],
+  }),
+
+  goal: one(goal, {
+    fields: [goalDeposits.goalId],
+    references: [goal.id],
   }),
 }));
