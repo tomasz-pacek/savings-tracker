@@ -117,6 +117,7 @@ export const goalDeposits = pgTable("goal_deposits", {
     scale: 2,
   }).notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
+  description: text("description"),
 });
 
 export const userRelations = relations(user, ({ many }) => ({

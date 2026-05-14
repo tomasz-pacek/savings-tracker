@@ -1,46 +1,26 @@
 "use client";
 
-import { Button } from "./ui/button";
+import * as React from "react";
+import { Button, buttonVariants } from "./ui/button";
+import { VariantProps } from "class-variance-authority";
 
-type Props = {
-  content: string;
-  className: string;
-  isPending?: boolean;
-  isPendingContent?: string;
-  type?: "button" | "submit" | "reset";
-  variant?:
-    | "default"
-    | "outline"
-    | "secondary"
-    | "ghost"
-    | "destructive"
-    | "link";
-  size?: "default" | "xs" | "sm" | "lg" | "icon";
-  onClick?: () => void;
-  disabled?: boolean;
-};
+type Props = React.ComponentProps<"button"> &
+  VariantProps<typeof buttonVariants> & {
+    isPending?: boolean;
+    pendingText?: string;
+    children: React.ReactNode;
+  };
 
 export default function ActionButton({
-  content,
-  className,
+  children,
   isPending,
-  isPendingContent,
-  type,
-  variant,
-  size,
-  onClick,
+  pendingText = "Loading...",
   disabled,
+  ...props
 }: Props) {
   return (
-    <Button
-      className={className}
-      disabled={disabled}
-      type={type}
-      variant={variant}
-      size={size}
-      onClick={onClick}
-    >
-      {isPending ? isPendingContent : content}
+    <Button disabled={disabled || isPending} {...props}>
+      {isPending ? pendingText : children}
     </Button>
   );
 }

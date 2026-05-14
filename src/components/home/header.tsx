@@ -6,7 +6,7 @@ import UserMenuClient from "./user-menu-client";
 export default async function Header() {
   const session = await getCurrentSession();
   return (
-    <header className="w-full border-b border-b-muted-foreground py-4">
+    <header className="w-full py-4">
       <div className="container mx-auto">
         <div className="w-full flex items-center justify-between">
           <h1 className="text-xl">Savings Tracker</h1>
