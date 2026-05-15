@@ -159,13 +159,13 @@ export default function RegisterForm() {
         />
       </FieldGroup>
       <ActionButton
-        content="Register"
         className="mt-6 w-full cursor-pointer"
         disabled={isSubmitting}
         isPending={isSubmitting}
-        isPendingContent="Registering..."
         type="submit"
-      />
+      >
+        Register
+      </ActionButton>
     </form>
   );
 }

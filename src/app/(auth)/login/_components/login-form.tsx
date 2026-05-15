@@ -108,12 +108,12 @@ export default function LoginForm() {
       </FieldGroup>
       <ActionButton
         className="mt-6 w-full cursor-pointer"
-        content="Login"
         disabled={isSubmitting}
-        isPendingContent="Loggin in..."
         isPending={isSubmitting}
         type="submit"
-      />
+      >
+        Login
+      </ActionButton>
     </form>
   );
 }

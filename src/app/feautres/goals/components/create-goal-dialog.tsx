@@ -7,16 +7,17 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useGoalDialogStore } from "../store/use-goal-dialog-store";
+import CreateGoalForm from "./create-goal-form";
 
 export default function CreateGoalDialog() {
   const { isOpen, close } = useGoalDialogStore();
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && close()}>
-      <DialogContent>
+      <DialogContent className="p-8">
         <DialogHeader>
           <DialogTitle>Create goal</DialogTitle>
         </DialogHeader>
-        <div>tutaj content form do tworzenia goala</div>
+        <CreateGoalForm />
       </DialogContent>
     </Dialog>
   );
