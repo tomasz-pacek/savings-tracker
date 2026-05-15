@@ -1,7 +1,8 @@
 import { Plus } from "lucide-react";
-import { Button } from "../ui/button";
 import { getCurrentSession } from "@/lib/auth-utils";
 import UserMenuClient from "./user-menu-client";
+import { Button } from "@/components/ui/button";
+import CreateGoalButton from "@/components/create-goal-button";
 
 export default async function Header() {
   const session = await getCurrentSession();
@@ -12,10 +13,10 @@ export default async function Header() {
           <h1 className="text-xl">Savings Tracker</h1>
           <div className="flex items-center justify-center gap-x-2">
             {session ? (
-              <Button className="rounded-full px-4 py-1.5 text-sm font-normal">
+              <CreateGoalButton className="rounded-full">
                 <Plus />
                 New goal
-              </Button>
+              </CreateGoalButton>
             ) : null}
 
             <UserMenuClient session={session} />

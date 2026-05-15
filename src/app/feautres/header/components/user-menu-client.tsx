@@ -1,6 +1,12 @@
 "use client";
 
 import { LogOut, Settings, User2 } from "lucide-react";
+
+import { Session } from "@/types/auth";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "sonner";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,12 +14,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { Session } from "@/types/auth";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { authClient } from "@/lib/auth-client";
-import { toast } from "sonner";
+} from "@/components/ui/dropdown-menu";
 
 type Props = {
   session: Session;

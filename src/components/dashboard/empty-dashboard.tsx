@@ -6,10 +6,8 @@ import {
   EmptyDescription,
   EmptyContent,
 } from "@/components/ui/empty";
+import CreateGoalButton from "../create-goal-button";
 import { Plus } from "lucide-react";
-import { Button } from "../ui/button";
-import ActionButton from "../action-button";
-import CreateGoalButton from "./create-goal-button";
 
 export function EmptyDashboard() {
   return (
@@ -53,7 +51,10 @@ export function EmptyDashboard() {
                   </EmptyDescription>
                 </EmptyHeader>
                 <EmptyContent>
-                  <CreateGoalButton />
+                  <CreateGoalButton>
+                    <Plus />
+                    Create new goal
+                  </CreateGoalButton>
                 </EmptyContent>
               </Empty>
             </CardContent>
