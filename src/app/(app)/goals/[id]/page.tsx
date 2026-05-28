@@ -4,6 +4,8 @@ import { getCurrentSession } from "@/lib/auth-utils";
 import { and, eq } from "drizzle-orm";
 import ActionsBar from "./_components/actions-bar";
 import GoalDetails from "./_components/goal-details";
+import DepositHistory from "./_components/deposit-history";
+import AddDepositCard from "./_components/add-deposit-card";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -38,6 +40,8 @@ export default async function GoalPage({ params }: Props) {
     <main className="container mx-auto mt-6">
       <ActionsBar />
       <GoalDetails userGoal={userGoal} />
+      <AddDepositCard />
+      <DepositHistory />
     </main>
   );
 }

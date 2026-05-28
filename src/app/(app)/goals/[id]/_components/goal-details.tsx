@@ -34,10 +34,10 @@ export default function GoalDetails({ userGoal }: Props) {
           )}
         </div>
       </div>
-      <Card className="w-3/5 p-4">
+      <Card className="p-4 w-full lg:w-3/5">
         <CardContent>
           <div className="w-full flex items-center justify-between">
-            <p className="text-primary text-5xl font-medium">
+            <p className="text-primary text-5xl font-medium ">
               {goalPercentProgress}%
             </p>
             <p className="text-muted-foreground font-medium text-lg">

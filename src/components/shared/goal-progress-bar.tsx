@@ -12,7 +12,7 @@ export default function GoalProgressBar({
   return (
     <div className={`w-full h-2 relative rounded-full ${trackClassName}`}>
       <div
-        className={`absolute h-2 rounded-full ${fillClassName}`}
+        className={`absolute h-2 rounded-full ${fillClassName} transition-all duration-300`}
         style={{ width: `${value}%` }}
       />
     </div>
