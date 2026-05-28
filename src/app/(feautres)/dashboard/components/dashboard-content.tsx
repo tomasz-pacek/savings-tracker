@@ -2,8 +2,9 @@ import { db } from "@/db";
 import { getCurrentSession } from "@/lib/auth-utils";
 import { goal } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { EmptyDashboard } from "./empty-dashboard";
-import CreateGoalDialog from "@/app/feautres/goals/components/create-goal-dialog";
+import CreateGoalDialog from "@/app/(feautres)/goals/components/create-goal-dialog";
+import Dashboard from "./dashboard";
+import EmptyDashboard from "./empty-dashboard";
 
 export default async function DashboardContent() {
   const session = await getCurrentSession();
@@ -20,7 +21,11 @@ export default async function DashboardContent() {
 
   return (
     <>
-      {userGoals.length > 0 ? <div>goale ziomeczka</div> : <EmptyDashboard />}
+      {userGoals.length > 0 ? (
+        <Dashboard userGoals={userGoals} goalsCount={goalsCount} />
+      ) : (
+        <EmptyDashboard />
+      )}
       <CreateGoalDialog />
     </>
   );

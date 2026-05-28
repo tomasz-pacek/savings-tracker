@@ -1,8 +1,7 @@
 import { Plus } from "lucide-react";
 import { getCurrentSession } from "@/lib/auth-utils";
 import UserMenuClient from "./user-menu-client";
-import { Button } from "@/components/ui/button";
-import CreateGoalButton from "@/components/create-goal-button";
+import CreateGoalButton from "@/components/shared/create-goal-button";
 
 export default async function Header() {
   const session = await getCurrentSession();

@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/input-group";
 import { useState } from "react";
 import { EyeClosedIcon, EyeIcon } from "lucide-react";
-import ActionButton from "@/components/action-button";
+import ActionButton from "@/components/shared/action-button";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";

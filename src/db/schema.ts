@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm";
+import { InferSelectModel, relations } from "drizzle-orm";
 import {
   pgTable,
   text,
@@ -162,3 +162,5 @@ export const goalDepositsRelations = relations(goalDeposits, ({ one }) => ({
     references: [goal.id],
   }),
 }));
+
+export type Goal = InferSelectModel<typeof goal>;

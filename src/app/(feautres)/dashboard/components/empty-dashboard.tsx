@@ -1,3 +1,4 @@
+import CreateGoalButton from "@/components/shared/create-goal-button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Empty,
@@ -6,10 +7,9 @@ import {
   EmptyDescription,
   EmptyContent,
 } from "@/components/ui/empty";
-import CreateGoalButton from "../create-goal-button";
 import { Plus } from "lucide-react";
 
-export function EmptyDashboard() {
+export default function EmptyDashboard() {
   return (
     <div className="min-h-screen flex flex-col w-full">
       {/* Empty State Content */}
@@ -18,21 +18,21 @@ export function EmptyDashboard() {
           {/* Stats Cards - Empty */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <Card className="bg-primary text-primary-foreground border-0">
-              <CardContent className="pt-4">
+              <CardContent className="flex flex-col justify-between h-full gap-4">
                 <p className="text-sm mb-1 font-medium">Total savings</p>
                 <p className="text-4xl font-bold">0,00 zł</p>
               </CardContent>
             </Card>
             <Card>
-              <CardContent className="pt-4">
+              <CardContent className="flex flex-col justify-between h-full gap-4">
                 <p className="text-sm mb-1 font-medium">Active goals</p>
                 <p className="text-4xl font-bold text-primary">0</p>
               </CardContent>
             </Card>
             <Card>
-              <CardContent className="pt-4">
-                <p className="text-sm mb-1 font-medium">Finished goals</p>
-                <p className="text-4xl font-bold text-primary">0</p>
+              <CardContent className="flex flex-col justify-between h-full gap-4">
+                <p className="text-sm mb-1 font-medium">Goals completed </p>
+                <p className="text-4xl font-bold text-success">0</p>
               </CardContent>
             </Card>
           </div>

@@ -1,7 +1,7 @@
-import DashboardContent from "@/components/dashboard/dashboard-content";
+import DashboardContent from "@/app/(feautres)/dashboard/components/dashboard-content";
+import Header from "@/components/header/header";
 import { HeroSection } from "@/components/home/hero-section";
 import { getCurrentSession } from "@/lib/auth-utils";
-import Header from "./feautres/header/components/header";
 
 export default async function Home() {
   const session = await getCurrentSession();

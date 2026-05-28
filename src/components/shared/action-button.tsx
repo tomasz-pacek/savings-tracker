@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Button, buttonVariants } from "./ui/button";
+import { Button, buttonVariants } from "../ui/button";
 import { VariantProps } from "class-variance-authority";
 
 type Props = React.ComponentProps<"button"> &

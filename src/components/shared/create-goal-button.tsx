@@ -1,7 +1,7 @@
 "use client";
 
-import { useGoalDialogStore } from "@/app/feautres/goals/store/use-goal-dialog-store";
-import { Button } from "./ui/button";
+import { useGoalDialogStore } from "@/app/(feautres)/goals/store/use-goal-dialog-store";
+import { Button } from "../ui/button";
 
 type Props = {
   children: React.ReactNode;
