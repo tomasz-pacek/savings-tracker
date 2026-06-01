@@ -41,7 +41,7 @@ export default async function GoalPage({ params }: Props) {
       <ActionsBar />
       <GoalDetails userGoal={userGoal} />
       <AddDepositCard />
-      <DepositHistory />
+      <DepositHistory goalId={id} />
     </main>
   );
 }
