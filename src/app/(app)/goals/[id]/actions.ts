@@ -5,7 +5,6 @@ import { goalDeposits, goal } from "@/db/schema";
 import { getCurrentSession } from "@/lib/auth-utils";
 import { and, eq, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { success } from "zod";
 
 export const addDepositToDatabase = async (
   amount: number,
@@ -47,5 +46,73 @@ export const addDepositToDatabase = async (
   } catch (error) {
     console.error(error);
     return { success: false, error: "Failed to add deposit" };
+  }
+};
+
+export const updateGoalDetails = async (
+  goalId: string,
+  goalName: string,
+  targetAmount: string,
+  deadline: string | null,
+) => {
+  const session = await getCurrentSession();
+  if (!session) {
+    return { success: false, error: "Unauthorized" };
+  }
+
+  try {
+    const userGoal = await db
+      .select()
+      .from(goal)
+      .where(and(eq(goal.id, goalId), eq(goal.userId, session.user.id)))
+      .limit(1);
+
+    if (!userGoal.length) {
+      return { success: false, error: "Goal not found" };
+    }
+
+    await db
+      .update(goal)
+      .set({
+        name: goalName,
+        targetAmount,
+        deadline: deadline || null,
+      })
+      .where(and(eq(goal.id, goalId), eq(goal.userId, session.user.id)));
+    revalidatePath("/goals");
+
+    return { success: true };
+  } catch (error) {
+    console.error(error);
+    return { success: false, error: "Failed to update goal details." };
+  }
+};
+
+export const deleteGoal = async (goalId: string) => {
+  const session = await getCurrentSession();
+  if (!session) {
+    return { success: false, error: "Unauthorized" };
+  }
+
+  try {
+    const userGoal = await db
+      .select()
+      .from(goal)
+      .where(and(eq(goal.id, goalId), eq(goal.userId, session.user.id)))
+      .limit(1);
+
+    if (!userGoal.length) {
+      return { success: false, error: "Goal not found" };
+    }
+
+    await db
+      .delete(goal)
+      .where(and(eq(goal.id, goalId), eq(goal.userId, session.user.id)));
+
+    revalidatePath("/");
+    return { success: true };
+  } catch (error) {
+    console.error(error);
+    return { success: false, error: "Failed to delete the goal." };
   }
 };

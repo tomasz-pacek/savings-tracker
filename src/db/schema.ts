@@ -101,7 +101,7 @@ export const goal = pgTable(
       .notNull()
       .default("0"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
-    deadline: timestamp("deadline"),
+    deadline: text("deadline"),
   },
   (table) => [index("goal_userId_idx").on(table.userId)],
 );

@@ -3,8 +3,12 @@
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useDeleteGoalDialogStore } from "../store/use-delete-goal-dialog-store";
+import { useEditGoalDialogStore } from "../store/use-edit-goal-dialog-store";
 
 export default function ActionsBar() {
+  const { open: openDeleteDialog } = useDeleteGoalDialogStore();
+  const { open: openEditDialog } = useEditGoalDialogStore();
   const router = useRouter();
 
   return (
@@ -19,10 +23,16 @@ export default function ActionsBar() {
       </Button>
       {/* Container to Edit and Delete Current Goal */}
       <div className="flex items-center justify-center gap-x-2">
-        <Button className="bg-transparent text-foreground hover:bg-foreground/10">
+        <Button
+          onClick={() => openEditDialog()}
+          className="bg-transparent text-foreground hover:bg-foreground/10"
+        >
           Edit goal
         </Button>
-        <Button className="bg-transparent text-destructive hover:bg-destructive/10">
+        <Button
+          onClick={() => openDeleteDialog()}
+          className="bg-transparent text-destructive hover:bg-destructive/10"
+        >
           Delete goal
         </Button>
       </div>

@@ -1,7 +1,7 @@
 import { db } from "@/db";
 import { goalDeposits } from "@/db/schema";
 import { getCurrentSession } from "@/lib/auth-utils";
-import { formatDate } from "@/lib/format-date";
+import { formatTimestampDate } from "@/lib/format-timestamp-date";
 import { and, desc, eq } from "drizzle-orm";
 import { ArrowDown } from "lucide-react";
 
@@ -51,7 +51,7 @@ export default async function DepositHistory({ goalId }: Props) {
                     <p className="text-sm">{deposit.description}</p>
                   )}
                   <p className="text-sm text-muted-foreground">
-                    {formatDate(deposit.createdAt)}
+                    {formatTimestampDate(deposit.createdAt)}
                   </p>
                 </div>
               </div>

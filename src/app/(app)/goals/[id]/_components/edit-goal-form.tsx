@@ -14,32 +14,49 @@ import { CirclePlus } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 import { toast } from "sonner";
-import { createGoalAction } from "../actions";
-import { useCreateGoalDialogStore } from "../store/use-create-goal-dialog-store";
+import { useEditGoalDialogStore } from "../store/use-edit-goal-dialog-store";
+import { updateGoalDetails } from "../actions";
+import { useParams } from "next/navigation";
 
-export default function CreateGoalForm() {
-  const { close } = useCreateGoalDialogStore();
+type Props = {
+  goalName: string;
+  targetAmount: string;
+  deadline: string | null;
+};
+
+export default function EditGoalForm({
+  goalName,
+  targetAmount,
+  deadline,
+}: Props) {
+  const { close } = useEditGoalDialogStore();
+  const params = useParams();
 
   const form = useForm<z.infer<typeof createGoalFormSchema>>({
     resolver: zodResolver(createGoalFormSchema),
     defaultValues: {
-      name: "",
-      targetAmount: 100,
-      deadline: "",
+      name: goalName,
+      targetAmount: Number(targetAmount),
+      deadline: deadline ? deadline : "",
     },
   });
 
   const onSubmit = async (data: z.infer<typeof createGoalFormSchema>) => {
     const { name, targetAmount, deadline } = data;
-    const result = await createGoalAction(name, targetAmount, deadline);
+    console.log(data);
 
-    //dialog close
-    close();
+    const result = await updateGoalDetails(
+      params.id as string,
+      name,
+      targetAmount.toString(),
+      deadline ?? null,
+    );
 
-    if (result?.success) {
-      toast("You created new goal.");
+    if (result.success) {
+      toast("Goal updated");
+      close();
     } else {
-      toast(result?.error);
+      toast(result.error);
     }
   };
 
@@ -77,6 +94,7 @@ export default function CreateGoalForm() {
                 id="create-goal-target-amount"
                 aria-invalid={fieldState.invalid}
                 autoComplete="off"
+                autoFocus
                 type="number"
                 onChange={(e) => {
                   const value = e.target.valueAsNumber;
@@ -100,6 +118,7 @@ export default function CreateGoalForm() {
                 id="create-goal-deadline"
                 aria-invalid={fieldState.invalid}
                 autoComplete="off"
+                autoFocus
                 type="datetime-local"
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -108,13 +127,8 @@ export default function CreateGoalForm() {
         />
       </FieldGroup>
       <ActionButton className="w-full mt-6 font-medium">
-        <CirclePlus />
-        Add new goal
+        Update goal
       </ActionButton>
     </form>
   );
 }
-
-//name
-//targetamount
-//deadline

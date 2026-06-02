@@ -21,7 +21,7 @@ export async function createGoalAction(
       userId: session.user.id,
       name,
       targetAmount: targetAmount.toString(),
-      deadline: deadline ? new Date(deadline) : null,
+      deadline,
     });
     revalidatePath("/");
     return { success: true };

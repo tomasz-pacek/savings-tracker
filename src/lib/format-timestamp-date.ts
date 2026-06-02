@@ -1,4 +1,4 @@
-export const formatDate = (date: Date | null) => {
+export const formatTimestampDate = (date: Date | null) => {
   if (!date) return null;
 
   return new Intl.DateTimeFormat("en-GB", {

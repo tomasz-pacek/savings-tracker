@@ -6,6 +6,8 @@ import ActionsBar from "./_components/actions-bar";
 import GoalDetails from "./_components/goal-details";
 import DepositHistory from "./_components/deposit-history";
 import AddDepositCard from "./_components/add-deposit-card";
+import DeleteGoalDialog from "./_components/delete-goal-dialog";
+import EditGoalDialog from "./_components/edit-goal-dialog";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -42,6 +44,12 @@ export default async function GoalPage({ params }: Props) {
       <GoalDetails userGoal={userGoal} />
       <AddDepositCard />
       <DepositHistory goalId={id} />
+      <DeleteGoalDialog />
+      <EditGoalDialog
+        goalName={userGoal.name}
+        targetAmount={userGoal.targetAmount}
+        deadline={userGoal.deadline}
+      />
     </main>
   );
 }

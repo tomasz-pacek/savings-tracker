@@ -6,8 +6,8 @@ import Link from "next/link";
 import { calculateProgress } from "@/lib/calculate-progress";
 import GoalProgressBar from "@/components/shared/goal-progress-bar";
 import { Dot } from "lucide-react";
-import { formatDate } from "@/lib/format-date";
 import { Badge } from "@/components/ui/badge";
+import { formatStringDate } from "@/lib/format-string-date";
 
 type Props = {
   userGoals: Goal[];
@@ -33,7 +33,7 @@ export default function DashbaordGoalGrid({
           currentAmount,
           targetAmount,
         );
-        const dueText = deadline ? `Due ${formatDate(deadline)}` : null;
+        const dueText = deadline ? formatStringDate(deadline) : null;
         const isSpecial = index % 6 === 0;
         const isCompleted = Number(currentAmount) >= Number(targetAmount);
 

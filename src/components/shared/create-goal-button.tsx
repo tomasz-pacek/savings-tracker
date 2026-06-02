@@ -1,6 +1,6 @@
 "use client";
 
-import { useGoalDialogStore } from "@/app/(feautres)/goals/store/use-goal-dialog-store";
+import { useCreateGoalDialogStore } from "@/app/(feautres)/goals/store/use-create-goal-dialog-store";
 import { Button } from "../ui/button";
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default function CreateGoalButton({ children, className }: Props) {
-  const open = useGoalDialogStore((s) => s.open);
+  const open = useCreateGoalDialogStore((s) => s.open);
   return (
     <Button onClick={open} className={className}>
       {children}

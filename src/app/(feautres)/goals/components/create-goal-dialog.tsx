@@ -6,11 +6,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useGoalDialogStore } from "../store/use-goal-dialog-store";
+import { useCreateGoalDialogStore } from "../store/use-create-goal-dialog-store";
 import CreateGoalForm from "./create-goal-form";
 
 export default function CreateGoalDialog() {
-  const { isOpen, close } = useGoalDialogStore();
+  const { isOpen, close } = useCreateGoalDialogStore();
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && close()}>
       <DialogContent className="p-8">

@@ -3,7 +3,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Goal } from "@/db/schema";
 import { calculateProgress } from "@/lib/calculate-progress";
 import { calculateRemainingValue } from "@/lib/calculate-remaining-value";
-import { formatDate } from "@/lib/format-date";
+import { formatStringDate } from "@/lib/format-string-date";
+import { formatTimestampDate } from "@/lib/format-timestamp-date";
 import { Dot } from "lucide-react";
 
 type Props = {
@@ -11,10 +12,10 @@ type Props = {
 };
 
 export default function GoalDetails({ userGoal }: Props) {
-  const { currentAmount, targetAmount } = userGoal;
-  const createdText = `Created ${formatDate(userGoal.createdAt)}`;
+  const { currentAmount, targetAmount, deadline } = userGoal;
+  const createdText = `Created ${formatTimestampDate(userGoal.createdAt)}`;
   const dueText = userGoal.deadline
-    ? `Due ${formatDate(userGoal.deadline)}`
+    ? `Due ${formatStringDate(deadline)}`
     : null;
 
   const goalPercentProgress = calculateProgress(currentAmount, targetAmount);
