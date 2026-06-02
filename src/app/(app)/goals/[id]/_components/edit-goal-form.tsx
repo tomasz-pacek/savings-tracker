@@ -10,7 +10,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { createGoalFormSchema } from "@/lib/validations/create-goal-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CirclePlus } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 import { toast } from "sonner";

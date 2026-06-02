@@ -14,15 +14,12 @@ export default async function DashboardContent() {
     return <div>No user</div>;
   }
 
-  const [userGoals, goalsCount] = await Promise.all([
-    db.select().from(goal).where(eq(goal.userId, userId)),
-    db.$count(goal, eq(goal.userId, userId)),
-  ]);
+  const userGoals = await db.select().from(goal).where(eq(goal.userId, userId));
 
   return (
     <>
       {userGoals.length > 0 ? (
-        <Dashboard userGoals={userGoals} goalsCount={goalsCount} />
+        <Dashboard userGoals={userGoals} goalsCount={userGoals.length} />
       ) : (
         <EmptyDashboard />
       )}
