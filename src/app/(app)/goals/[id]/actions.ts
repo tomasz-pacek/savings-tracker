@@ -30,7 +30,7 @@ export const addDepositToDatabase = async (
     await db.insert(goalDeposits).values({
       userId: session.user.id,
       goalId,
-      amount: amount.toString(),
+      amount,
       description,
     });
 
@@ -52,7 +52,7 @@ export const addDepositToDatabase = async (
 export const updateGoalDetails = async (
   goalId: string,
   goalName: string,
-  targetAmount: string,
+  targetAmount: number,
   deadline: string | null,
 ) => {
   const session = await getCurrentSession();

@@ -1,9 +1,9 @@
 export const calculateProgress = (
-  currentAmount: string,
-  targetAmount: string,
+  currentAmount: number,
+  targetAmount: number,
 ): number => {
-  const current = Number(currentAmount);
-  const target = Number(targetAmount);
+  const current = currentAmount;
+  const target = targetAmount;
 
   if (!target || isNaN(current) || isNaN(target)) return 0;
 

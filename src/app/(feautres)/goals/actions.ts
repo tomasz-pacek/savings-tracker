@@ -20,7 +20,7 @@ export async function createGoalAction(
     await db.insert(goal).values({
       userId: session.user.id,
       name,
-      targetAmount: targetAmount.toString(),
+      targetAmount,
       deadline,
     });
     revalidatePath("/");

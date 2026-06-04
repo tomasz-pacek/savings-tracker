@@ -5,7 +5,7 @@ import {
   timestamp,
   boolean,
   index,
-  numeric,
+  integer,
 } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
@@ -90,16 +90,8 @@ export const goal = pgTable(
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
     name: text("name").notNull(),
-    targetAmount: numeric("target_amount", {
-      precision: 12,
-      scale: 2,
-    }).notNull(),
-    currentAmount: numeric("current_amount", {
-      precision: 12,
-      scale: 2,
-    })
-      .notNull()
-      .default("0"),
+    targetAmount: integer("target_amount").notNull(),
+    currentAmount: integer("current_amount").notNull().default(0),
     createdAt: timestamp("created_at").defaultNow().notNull(),
     deadline: text("deadline"),
   },
@@ -116,10 +108,7 @@ export const goalDeposits = pgTable("goal_deposits", {
   goalId: text("goal_id")
     .notNull()
     .references(() => goal.id),
-  amount: numeric("amount", {
-    precision: 12,
-    scale: 2,
-  }).notNull(),
+  amount: integer("amount").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   description: text("description"),
 });
