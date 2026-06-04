@@ -8,11 +8,18 @@ type Props = {
 };
 
 export default function Dashboard({ userGoals, goalsCount }: Props) {
+  const userTotalSavingsValue = userGoals.reduce(
+    (acc, goal) => acc + goal.currentAmount,
+    0,
+  );
   return (
     <div className="min-h-screen flex flex-col w-full">
       <main className="flex-1 p-6 ">
         <div className="max-w-4xl mx-auto">
-          <DashboardStats goalsCount={goalsCount} />
+          <DashboardStats
+            goalsCount={goalsCount}
+            userTotalSavingsValue={userTotalSavingsValue}
+          />
           {/* monthly deposits */}
           <div className="w-full">
             {/* TODO: EMPTY STATE i DANE STATUSTYCZNE */}

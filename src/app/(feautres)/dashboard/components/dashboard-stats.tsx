@@ -6,9 +6,13 @@ import { and, count, eq, gte } from "drizzle-orm";
 
 type Props = {
   goalsCount: number;
+  userTotalSavingsValue: number;
 };
 
-export default async function DashboardStats({ goalsCount }: Props) {
+export default async function DashboardStats({
+  goalsCount,
+  userTotalSavingsValue,
+}: Props) {
   const session = await getCurrentSession();
   if (!session?.user.id) return <div>No user</div>;
 
@@ -28,7 +32,7 @@ export default async function DashboardStats({ goalsCount }: Props) {
       <Card className="bg-primary text-primary-foreground border-0 sm:col-span-2">
         <CardContent className="flex flex-col justify-between h-full gap-4">
           <p className="text-sm mb-1 font-medium">Total savings</p>
-          <p className="text-4xl font-bold">0,00$</p>
+          <p className="text-4xl font-bold">{userTotalSavingsValue}$</p>
         </CardContent>
       </Card>
       <Card>
