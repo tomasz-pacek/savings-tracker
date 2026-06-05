@@ -18,7 +18,7 @@ type Props = {
   startTransition: React.TransitionStartFunction;
 };
 
-export default function GoalsFilterBar({ startTransition }: Props) {
+export default function GoalsFilterCard({ startTransition }: Props) {
   const [search, setSearch] = useQueryState("search", {
     defaultValue: "",
     shallow: false,
@@ -38,14 +38,14 @@ export default function GoalsFilterBar({ startTransition }: Props) {
   }, [debouncedInputValue, setSearch]);
 
   return (
-    <div className="w-1/5 bg-card rounded-xl p-3 flex flex-col items-start justify-center gap-4">
+    <div className="bg-card flex w-full flex-col items-start justify-center gap-4 rounded-xl p-3 lg:w-1/5">
       <p className={`font-medium ${jetBrainsMono.className} text-foreground`}>
         Filters
       </p>
-      <div className="w-full flex flex-col items-start justify-center gap-2">
+      <div className="flex w-full flex-col items-start justify-center gap-2">
         <Label
           htmlFor="search-input"
-          className={`text-sm text-muted-foreground ${jetBrainsMono.className} `}
+          className={`text-muted-foreground text-sm ${jetBrainsMono.className} `}
         >
           Search Filter
         </Label>
@@ -59,9 +59,9 @@ export default function GoalsFilterBar({ startTransition }: Props) {
         />
       </div>
 
-      <div className="w-full flex flex-col items-start justify-center gap-2">
+      <div className="flex w-full flex-col items-start justify-center gap-2">
         <p
-          className={`font-medium text-sm text-muted-foreground ${jetBrainsMono.className}`}
+          className={`text-muted-foreground text-sm font-medium ${jetBrainsMono.className}`}
         >
           Sort by date
         </p>
@@ -69,12 +69,12 @@ export default function GoalsFilterBar({ startTransition }: Props) {
           onClick={() => {
             setDateOrder((prev) => (prev === "asc" ? "desc" : "asc"));
           }}
-          className="w-full bg-muted-foreground/10"
+          className="bg-muted-foreground/10 w-full"
         >
           {dateOrder === "desc" ? "Newest first" : "Oldest first"}
         </Button>
       </div>
-      <ViewToggle />
+      <ViewToggle startTransition={startTransition} />
     </div>
   );
 }

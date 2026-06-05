@@ -11,7 +11,7 @@ import EditGoalForm from "./edit-goal-form";
 
 type Props = {
   goalName: string;
-  targetAmount: string;
+  targetAmount: number;
   deadline: string | null;
 };
 

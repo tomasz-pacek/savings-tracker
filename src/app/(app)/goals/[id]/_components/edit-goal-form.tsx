@@ -19,7 +19,7 @@ import { useParams } from "next/navigation";
 
 type Props = {
   goalName: string;
-  targetAmount: string;
+  targetAmount: number;
   deadline: string | null;
 };
 
@@ -47,7 +47,7 @@ export default function EditGoalForm({
     const result = await updateGoalDetails(
       params.id as string,
       name,
-      targetAmount.toString(),
+      targetAmount,
       deadline ?? null,
     );
 
@@ -125,7 +125,7 @@ export default function EditGoalForm({
           )}
         />
       </FieldGroup>
-      <ActionButton className="w-full mt-6 font-medium">
+      <ActionButton className="mt-6 w-full font-medium">
         Update goal
       </ActionButton>
     </form>

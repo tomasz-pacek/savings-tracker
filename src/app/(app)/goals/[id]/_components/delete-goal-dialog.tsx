@@ -31,7 +31,7 @@ export default function DeleteGoalDialog() {
         <DialogHeader>
           <DialogTitle>Are you sure you want to delete this goal?</DialogTitle>
         </DialogHeader>
-        <div className="w-full mt-4 flex flex-col items-center justify-center gap-3">
+        <div className="mt-4 flex w-full flex-col items-center justify-center gap-3">
           <Label
             htmlFor="confirmation-input"
             className="text-muted-foreground whitespace-nowrap"
