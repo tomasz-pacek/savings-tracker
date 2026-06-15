@@ -17,32 +17,43 @@ export const addDepositToDatabase = async (
   }
 
   try {
-    const userGoal = await db
-      .select()
-      .from(goal)
-      .where(and(eq(goal.id, goalId), eq(goal.userId, session.user.id)))
-      .limit(1);
+    const result = await db.transaction(async (tx) => {
+      const [userGoal] = await tx
+        .select()
+        .from(goal)
+        .where(and(eq(goal.id, goalId), eq(goal.userId, session.user.id)))
+        .limit(1)
+        .for("update");
 
-    if (!userGoal.length) {
-      return { success: false, error: "Goal not found" };
-    }
+      if (!userGoal) {
+        return { success: false, error: "Goal not found" };
+      }
 
-    await db.insert(goalDeposits).values({
-      userId: session.user.id,
-      goalId,
-      amount,
-      description,
+      const remaining = userGoal.targetAmount - userGoal.currentAmount;
+      if (amount > remaining) {
+        return {
+          success: false,
+          error: `Amount exceeds remaining balance ($${remaining})`,
+        };
+      }
+
+      await tx.insert(goalDeposits).values({
+        userId: session.user.id,
+        goalId,
+        amount,
+        description,
+      });
+
+      await tx
+        .update(goal)
+        .set({ currentAmount: sql`${goal.currentAmount} + ${amount}` })
+        .where(and(eq(goal.id, goalId), eq(goal.userId, session.user.id)));
+
+      return { success: true };
     });
-
-    await db
-      .update(goal)
-      .set({
-        currentAmount: sql`${goal.currentAmount} + ${amount}`,
-      })
-      .where(and(eq(goal.id, goalId), eq(goal.userId, session.user.id)));
-
+    revalidatePath(`/goals/${goalId}`);
     revalidatePath("/goals");
-    return { success: true };
+    return result;
   } catch (error) {
     console.error(error);
     return { success: false, error: "Failed to add deposit" };

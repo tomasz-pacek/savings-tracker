@@ -21,8 +21,13 @@ import * as z from "zod";
 import { addDepositToDatabase } from "../actions";
 import { useParams } from "next/navigation";
 import { toast } from "sonner";
+import { Goal } from "@/db/schema";
 
-export default function AddDepositForm() {
+type Props = {
+  userGoal: Goal;
+};
+
+export default function AddDepositForm({ userGoal }: Props) {
   const params = useParams();
   const goalId = params.id as string;
   const form = useForm<z.infer<typeof addDepositFormSchema>>({
@@ -32,6 +37,10 @@ export default function AddDepositForm() {
       description: "",
     },
   });
+
+  const { currentAmount, targetAmount } = userGoal;
+  const remaining = targetAmount - currentAmount;
+  const watchedAmount = form.watch("amount");
 
   const onSubmit = async (data: z.infer<typeof addDepositFormSchema>) => {
     const { amount, description } = data;
@@ -72,7 +81,11 @@ export default function AddDepositForm() {
                   <DollarSign />
                 </InputGroupAddon>
               </InputGroup>
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+              {watchedAmount > remaining && (
+                <FieldError
+                  errors={[{ message: `Max deposit is $${remaining}` }]}
+                />
+              )}
             </Field>
           )}
         />
@@ -99,8 +112,9 @@ export default function AddDepositForm() {
         />
       </FieldGroup>
       <ActionButton
-        className="w-full rounded-full mt-4 py-5"
+        className="mt-4 w-full rounded-full py-5"
         pendingText="Adding funds..."
+        disabled={watchedAmount > remaining}
       >
         Add funds
       </ActionButton>

@@ -42,7 +42,7 @@ export default async function GoalPage({ params }: Props) {
     <main className="container mx-auto mt-6">
       <ActionsBar />
       <GoalDetails userGoal={userGoal} />
-      <AddDepositCard />
+      <AddDepositCard userGoal={userGoal} />
       <DepositHistory goalId={id} />
       <DeleteGoalDialog />
       <EditGoalDialog
