@@ -2,7 +2,6 @@ import { db } from "@/db";
 import { getCurrentSession } from "@/lib/auth-utils";
 import { goal } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import CreateGoalDialog from "@/app/(feautres)/goals/components/create-goal-dialog";
 import Dashboard from "./dashboard";
 import EmptyDashboard from "./empty-dashboard";
 
@@ -23,7 +22,6 @@ export default async function DashboardContent() {
       ) : (
         <EmptyDashboard />
       )}
-      <CreateGoalDialog />
     </>
   );
 }

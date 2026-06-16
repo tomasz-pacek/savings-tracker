@@ -43,9 +43,8 @@ export function getLayoutConfig(count: number): LayoutConfig {
     default:
       return {
         gridClass: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
-
         gridAreas:
-          "lg:[&>*:first-child]:col-span-2 lg:[&>*:nth-child(6)]:row-span-2",
+          "lg:[&>*:first-child]:col-span-2 lg:[&>*:nth-child(2)]:row-span-2 lg:[&>*:nth-child(5)]:row-span-2 lg:[&>*:nth-child(6)]:col-span-2",
       };
   }
 }

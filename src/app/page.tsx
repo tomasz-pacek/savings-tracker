@@ -7,7 +7,7 @@ export default async function Home() {
   const session = await getCurrentSession();
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex min-h-screen flex-col">
       <Header />
 
       <main className="container mx-auto flex flex-col items-start justify-center">

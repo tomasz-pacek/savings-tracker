@@ -42,19 +42,19 @@ export default function DashbaordGoalGrid({
             href={`/goals/${goal.id}`}
             key={goal.id}
             className={cn(
-              "w-full flex flex-col items-start justify-between gap-4 p-4 rounded-xl border hover:-translate-y-1 transition-all duration-300",
+              "flex w-full flex-col items-start justify-between gap-4 rounded-xl border p-4 transition-all duration-300 hover:-translate-y-1",
               isSpecial ? "bg-primary text-foreground" : "bg-card text-primary",
             )}
           >
-            <div className="w-full flex items-center justify-between">
-              <p className="text-base text-foreground">{goal.name}</p>
+            <div className="flex w-full items-center justify-between">
+              <p className="text-foreground text-base">{goal.name}</p>
               {isCompleted && (
                 <Badge className="text-success bg-success/20 border-success font-normal">
                   COMPLETE
                 </Badge>
               )}
             </div>
-            <div className="w-full flex flex-col items-start justify-center gap-2">
+            <div className="flex w-full flex-col items-start justify-center gap-2">
               <p
                 className={cn(
                   "text-4xl font-bold",
@@ -80,7 +80,7 @@ export default function DashbaordGoalGrid({
                 trackClassName={isSpecial ? "bg-black/20" : undefined}
               />
               <div className="flex items-center justify-center">
-                <p className="text-xs text-foreground">
+                <p className="text-foreground text-xs">
                   ${Number(currentAmount).toFixed(0)} of $
                   {Number(targetAmount).toFixed(0)}
                 </p>
@@ -93,7 +93,7 @@ export default function DashbaordGoalGrid({
                     />
                     <p
                       className={cn(
-                        "text-xs ",
+                        "text-xs",
                         isSpecial ? "text-foreground" : "text-muted-foreground",
                       )}
                     >

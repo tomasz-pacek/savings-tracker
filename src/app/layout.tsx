@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "sonner";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import DialogProvider from "@/components/providers/dialog-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,10 +27,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.className}  h-full antialiased`}
+      className={`${geistSans.className} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
+      <body className="flex min-h-full flex-col">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -39,6 +40,7 @@ export default function RootLayout({
           <NuqsAdapter>{children}</NuqsAdapter>
         </ThemeProvider>
         <Toaster />
+        <DialogProvider />
       </body>
     </html>
   );
