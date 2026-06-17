@@ -16,7 +16,7 @@ import {
 import { addDepositFormSchema } from "@/lib/validations/add-deposit-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DollarSign } from "lucide-react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import * as z from "zod";
 import { addDepositToDatabase } from "../actions";
 import { useParams } from "next/navigation";
@@ -40,7 +40,10 @@ export default function AddDepositForm({ userGoal }: Props) {
 
   const { currentAmount, targetAmount } = userGoal;
   const remaining = targetAmount - currentAmount;
-  const watchedAmount = form.watch("amount");
+  const watchedAmount = useWatch({
+    control: form.control,
+    name: "amount",
+  });
 
   const onSubmit = async (data: z.infer<typeof addDepositFormSchema>) => {
     const { amount, description } = data;

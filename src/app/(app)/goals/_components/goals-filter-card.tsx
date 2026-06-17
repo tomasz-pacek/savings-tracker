@@ -2,10 +2,8 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useDebounce } from "@/hooks/use-debounce";
 import { JetBrains_Mono } from "next/font/google";
 import { useQueryState } from "nuqs";
-import { useEffect, useState } from "react";
 import ViewToggle from "./view-toggle";
 
 const jetBrainsMono = JetBrains_Mono({
@@ -21,19 +19,16 @@ export default function GoalsFilterCard({ startTransition }: Props) {
     defaultValue: "",
     shallow: false,
     startTransition,
+    limitUrlUpdates: {
+      method: "debounce",
+      timeMs: 500,
+    },
   });
   const [dateOrder, setDateOrder] = useQueryState("dateOrder", {
     defaultValue: "desc",
     shallow: false,
     startTransition,
   });
-
-  const [inputValue, setInputValue] = useState(search);
-
-  const debouncedInputValue = useDebounce(inputValue, 500);
-  useEffect(() => {
-    setSearch(debouncedInputValue || null);
-  }, [debouncedInputValue, setSearch]);
 
   return (
     <div className="bg-card flex w-full flex-col rounded-xl p-4">
@@ -56,8 +51,8 @@ export default function GoalsFilterCard({ startTransition }: Props) {
             type="text"
             autoComplete="off"
             placeholder="Search by name"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
             className="w-full"
           />
         </div>
