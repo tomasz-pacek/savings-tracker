@@ -52,7 +52,7 @@ export default function RegisterForm() {
         onSuccess: () => {
           setIsSubmitting(false);
           router.push("/");
-          toast("User registered successfully!");
+          toast("Account created, verify your email.");
         },
         onError: (ctx) => {
           setIsSubmitting(false);

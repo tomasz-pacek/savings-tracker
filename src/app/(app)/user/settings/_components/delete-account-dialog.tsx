@@ -64,36 +64,45 @@ export default function DeleteAccountDialog({ isOpen, setIsOpen }: Props) {
             account and remove your data from our servers.
           </DialogDescription>
         </DialogHeader>
-        <Label
-          htmlFor="delete-account-password-input"
-          className="flex flex-col items-start"
+
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (!isDeleting) handleDeletePassword();
+          }}
         >
-          Enter your password to delete your account
-          <InputGroup id="delete-account-password-input">
-            <InputGroupInput
-              placeholder="••••••••••••••••"
-              type={isPasswordVisible ? "text" : "password"}
-              autoComplete="off"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <InputGroupAddon
-              align="inline-end"
-              className="cursor-pointer"
-              onClick={() => setIsPasswordVisible((prev) => !prev)}
-            >
-              {isPasswordVisible ? <EyeClosed /> : <Eye />}
-            </InputGroupAddon>
-          </InputGroup>
-        </Label>
-        <ActionButton
-          isPending={isDeleting}
-          disabled={isDeleting}
-          pendingText="Deleting..."
-          onClick={handleDeletePassword}
-        >
-          Delete account
-        </ActionButton>
+          <Label
+            htmlFor="delete-account-password-input"
+            className="flex flex-col items-start"
+          >
+            Enter your password to delete your account
+            <InputGroup id="delete-account-password-input">
+              <InputGroupInput
+                placeholder="••••••••••••••••"
+                type={isPasswordVisible ? "text" : "password"}
+                autoComplete="off"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <InputGroupAddon
+                align="inline-end"
+                className="cursor-pointer"
+                onClick={() => setIsPasswordVisible((prev) => !prev)}
+              >
+                {isPasswordVisible ? <EyeClosed /> : <Eye />}
+              </InputGroupAddon>
+            </InputGroup>
+          </Label>
+
+          <ActionButton
+            type="submit"
+            isPending={isDeleting}
+            disabled={isDeleting}
+            pendingText="Deleting..."
+          >
+            Delete account
+          </ActionButton>
+        </form>
       </DialogContent>
     </Dialog>
   );

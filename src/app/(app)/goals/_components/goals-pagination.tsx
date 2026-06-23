@@ -21,27 +21,31 @@ export default function GoalsPagination({ currentPage, totalPages }: Props) {
     parseAsInteger.withDefault(1).withOptions({ shallow: false }),
   );
   return (
-    <Pagination>
-      <PaginationContent>
-        <PaginationPrevious
-          onClick={() => setPage(Math.max(1, currentPage - 1))}
-        />
+    <>
+      {totalPages > 1 && (
+        <Pagination>
+          <PaginationContent>
+            <PaginationPrevious
+              onClick={() => setPage(Math.max(1, currentPage - 1))}
+            />
 
-        {Array.from({ length: totalPages }).map((_, i) => (
-          <PaginationItem key={i}>
-            <PaginationLink
-              isActive={currentPage === i + 1}
-              onClick={() => setPage(i + 1)}
-            >
-              {i + 1}
-            </PaginationLink>
-          </PaginationItem>
-        ))}
+            {Array.from({ length: totalPages }).map((_, i) => (
+              <PaginationItem key={i}>
+                <PaginationLink
+                  isActive={currentPage === i + 1}
+                  onClick={() => setPage(i + 1)}
+                >
+                  {i + 1}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
 
-        <PaginationNext
-          onClick={() => setPage(Math.min(totalPages, currentPage + 1))}
-        />
-      </PaginationContent>
-    </Pagination>
+            <PaginationNext
+              onClick={() => setPage(Math.min(totalPages, currentPage + 1))}
+            />
+          </PaginationContent>
+        </Pagination>
+      )}
+    </>
   );
 }
