@@ -1,6 +1,6 @@
 "use client";
 
-import { LogOut, Settings, User2 } from "lucide-react";
+import { LogOut, Settings, User } from "lucide-react";
 
 import { Session } from "@/types/auth";
 import Link from "next/link";
@@ -26,7 +26,7 @@ export default function UserMenuClient({ session }: Props) {
   if (!session) {
     return (
       <Link
-        className="bg-primary px-4 py-1.5 text-sm rounded-full transition-all duration-200"
+        className="bg-primary rounded-full px-4 py-1.5 text-sm transition-all duration-200"
         href="/login"
       >
         Login
@@ -37,8 +37,8 @@ export default function UserMenuClient({ session }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="cursor-pointer outline-none">
-        <div className="bg-primary p-1 rounded-full ">
-          <User2 size={20} />
+        <div className="bg-primary rounded-full p-1">
+          <User size={20} />
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent>

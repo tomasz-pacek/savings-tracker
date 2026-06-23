@@ -13,11 +13,13 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
+import { authClient } from "@/lib/auth-client";
 import { changePasswordFormSchema } from "@/lib/validations/change-password-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Eye, EyeClosed } from "lucide-react";
 import { useState } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
+import { toast } from "sonner";
 import * as z from "zod";
 export default function ChangePasswordForm() {
   const [showPassword, setShowPassword] = useState({
@@ -48,10 +50,37 @@ export default function ChangePasswordForm() {
     name: "newPassword",
   });
 
-  //TODO: onSubmit to change the password
+  const onSubmit = async (data: z.infer<typeof changePasswordFormSchema>) => {
+    const { currentPassword, newPassword, confirmNewPassword } = data;
+
+    if (newPassword !== confirmNewPassword)
+      return toast("Passwords do not match");
+
+    await authClient.changePassword(
+      {
+        newPassword,
+        currentPassword,
+        revokeOtherSessions: true,
+      },
+      {
+        onSuccess: () => {
+          toast("You've changed your password");
+        },
+        onError: (ctx) => {
+          console.error(ctx.error.message);
+          toast(ctx.error.message);
+        },
+      },
+    );
+  };
+
   return (
     <div className="w-full space-y-6">
-      <form id="change-password-form" className="w-full">
+      <form
+        id="change-password-form"
+        className="w-full"
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
         <FieldGroup className="flex w-full items-center justify-center gap-6 lg:flex-row">
           <Controller
             name="currentPassword"
@@ -146,7 +175,13 @@ export default function ChangePasswordForm() {
       </form>
       <div className="flex w-full items-end justify-between">
         <PasswordRequirements password={watchNewPassword} />
-        <ActionButton disabled={!form.formState.isValid}>Save</ActionButton>
+        <ActionButton
+          form="change-password-form"
+          disabled={!form.formState.isValid}
+          type="submit"
+        >
+          Save
+        </ActionButton>
       </div>
     </div>
   );

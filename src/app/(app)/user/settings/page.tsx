@@ -5,6 +5,7 @@ import SettingsCardTemplate from "./_components/settings-card-template";
 import { Lock, TriangleAlert, User } from "lucide-react";
 import PersonalInformationForm from "./_components/personal-information-form";
 import ChangePasswordForm from "./_components/change-password-form";
+import DangerZoneForm from "./_components/danger-zone-form";
 
 export default async function UserSettingsPage() {
   const session = await getCurrentSession();
@@ -39,7 +40,7 @@ export default async function UserSettingsPage() {
             iconWrapperClassName="bg-destructive/15"
             iconClassName="text-destructive"
           >
-            form here
+            <DangerZoneForm />
           </SettingsCardTemplate>
         </div>
       </div>
