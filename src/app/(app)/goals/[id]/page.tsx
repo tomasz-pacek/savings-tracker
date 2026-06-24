@@ -8,10 +8,27 @@ import DepositHistory from "./_components/deposit-history";
 import AddDepositCard from "./_components/add-deposit-card";
 import DeleteGoalDialog from "./_components/delete-goal-dialog";
 import EditGoalDialog from "./_components/edit-goal-dialog";
+import { getGoal } from "./get-goal";
 
 type Props = {
   params: Promise<{ id: string }>;
 };
+
+export async function generateMetadata({ params }: Props) {
+  const session = await getCurrentSession();
+  if (!session) {
+    return {
+      title: "Goal",
+    };
+  }
+
+  const { id } = await params;
+  const userGoal = await getGoal(id, session.user.id);
+
+  return {
+    title: userGoal.name ?? "Goal not found",
+  };
+}
 
 export default async function GoalPage({ params }: Props) {
   const session = await getCurrentSession();
@@ -23,13 +40,7 @@ export default async function GoalPage({ params }: Props) {
 
   const currentUserId = session.user.id;
 
-  const userGoal = await db
-    .select()
-    .from(goal)
-    .where(and(eq(goal.id, id), eq(goal.userId, currentUserId)))
-    .limit(1)
-    .then((rows) => rows[0]);
-
+  const userGoal = await getGoal(id, currentUserId);
   if (!userGoal) {
     return (
       <main className="container mx-auto">

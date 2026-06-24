@@ -22,9 +22,11 @@ export default function GoalDetails({ userGoal }: Props) {
   const remainingValue = calculateRemainingValue(currentAmount, targetAmount);
 
   return (
-    <div className="flex flex-col items-center justify-center gap-6 mt-6">
+    <div className="mt-6 flex flex-col items-center justify-center gap-6 px-4">
       <div className="flex flex-col items-center justify-center gap-y-1">
-        <h1 className="font-medium text-6xl">{userGoal.name}</h1>
+        <h1 className="text-center text-4xl font-medium lg:text-6xl">
+          {userGoal.name}
+        </h1>
         <div className="flex items-center justify-center gap-x-1">
           <p className="text-muted-foreground text-sm">{createdText}</p>
           {dueText && (
@@ -35,13 +37,13 @@ export default function GoalDetails({ userGoal }: Props) {
           )}
         </div>
       </div>
-      <Card className="p-4 w-full lg:w-3/5">
+      <Card className="w-full lg:w-3/5 lg:p-4">
         <CardContent>
-          <div className="w-full flex items-center justify-between">
-            <p className="text-primary text-5xl font-medium ">
+          <div className="flex w-full items-center justify-between">
+            <p className="text-primary text-5xl font-medium">
               {goalPercentProgress}%
             </p>
-            <p className="text-muted-foreground font-medium text-lg">
+            <p className="text-muted-foreground text-lg font-medium">
               ${remainingValue.toFixed(2)} remaining
             </p>
           </div>

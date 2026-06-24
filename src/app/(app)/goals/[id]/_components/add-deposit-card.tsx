@@ -8,7 +8,7 @@ type Props = {
 
 export default function AddDepositCard({ userGoal }: Props) {
   return (
-    <div className="mt-6 flex items-center justify-center">
+    <div className="mt-6 flex items-center justify-center px-4">
       <Card className="w-full lg:w-3/5">
         <CardHeader>
           <CardTitle>Add deposit</CardTitle>

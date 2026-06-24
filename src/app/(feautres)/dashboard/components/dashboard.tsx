@@ -25,7 +25,7 @@ export default async function Dashboard({ userGoals, goalsCount }: Props) {
   return (
     <div className="flex min-h-screen w-full flex-col">
       <main className="flex-1 p-6">
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto lg:max-w-6xl">
           <DashboardStats
             goalsCount={goalsCount}
             userTotalSavingsValue={userTotalSavingsValue}
