@@ -1,6 +1,6 @@
 "use client";
 
-import { goal, Goal } from "@/db/schema";
+import { Goal } from "@/db/schema";
 import { Target } from "lucide-react";
 import GoalsGridView from "./goals-grid-view";
 import { useSearchParams } from "next/navigation";
@@ -31,7 +31,7 @@ export default function GoalsView({ goals, isPending }: Props) {
 
   if (goals.length === 0) {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center py-20">
+      <div className="flex w-full flex-col items-center justify-center py-20">
         <div className="bg-muted/50 mb-4 rounded-full p-4">
           <Target className="text-muted-foreground h-10 w-10" />
         </div>

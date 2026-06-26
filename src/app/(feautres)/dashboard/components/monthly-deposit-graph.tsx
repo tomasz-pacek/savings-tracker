@@ -26,7 +26,6 @@ type Props = {
 };
 
 export function MonthlyDepositsGraph({ graphData }: Props) {
-  // Minimum width per bar so the chart scrolls on narrow screens
   const minWidth = graphData.length * 48;
 
   return (
@@ -35,7 +34,6 @@ export function MonthlyDepositsGraph({ graphData }: Props) {
         <CardTitle>Monthly deposits</CardTitle>
       </CardHeader>
       <CardContent className="px-2">
-        {/* Outer div clips overflow; inner div forces the minimum width */}
         <div className="w-full overflow-x-auto">
           <div style={{ minWidth }}>
             <ChartContainer config={chartConfig} className="h-32 w-full">
@@ -61,7 +59,6 @@ export function MonthlyDepositsGraph({ graphData }: Props) {
                   tickMargin={6}
                   axisLine={false}
                   tick={{ fill: "var(--foreground)", fontSize: "0.75rem" }}
-                  // show every label – scrolling handles the space issue
                   interval={0}
                 />
                 <ChartTooltip

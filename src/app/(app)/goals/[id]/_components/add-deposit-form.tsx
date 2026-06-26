@@ -22,6 +22,11 @@ import { addDepositToDatabase } from "../actions";
 import { useParams } from "next/navigation";
 import { toast } from "sonner";
 import { Goal } from "@/db/schema";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 type Props = {
   userGoal: Goal;
@@ -40,6 +45,7 @@ export default function AddDepositForm({ userGoal }: Props) {
 
   const { currentAmount, targetAmount } = userGoal;
   const remaining = targetAmount - currentAmount;
+  const isCompleted = remaining === 0;
   const watchedAmount = useWatch({
     control: form.control,
     name: "amount",
@@ -66,24 +72,32 @@ export default function AddDepositForm({ userGoal }: Props) {
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid} className="">
               <FieldLabel htmlFor="add-deposit-form-amount">Amount</FieldLabel>
-              <InputGroup>
-                <InputGroupInput
-                  {...field}
-                  id="add-deposit-form-amount"
-                  aria-invalid={fieldState.invalid}
-                  placeholder="0.00"
-                  autoComplete="off"
-                  autoFocus
-                  type="number"
-                  onChange={(e) => {
-                    const value = e.target.valueAsNumber;
-                    field.onChange(isNaN(value) ? "" : value);
-                  }}
-                />
-                <InputGroupAddon align={"inline-start"}>
-                  <DollarSign />
-                </InputGroupAddon>
-              </InputGroup>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <InputGroup>
+                    <InputGroupInput
+                      {...field}
+                      id="add-deposit-form-amount"
+                      aria-invalid={fieldState.invalid}
+                      placeholder="0.00"
+                      autoComplete="off"
+                      autoFocus
+                      type="number"
+                      disabled={isCompleted}
+                      onChange={(e) => {
+                        const value = e.target.valueAsNumber;
+                        field.onChange(isNaN(value) ? "" : value);
+                      }}
+                    />
+                    <InputGroupAddon align={"inline-start"}>
+                      <DollarSign />
+                    </InputGroupAddon>
+                  </InputGroup>
+                </TooltipTrigger>
+                {isCompleted && (
+                  <TooltipContent>Goal already completed</TooltipContent>
+                )}
+              </Tooltip>
               {watchedAmount > remaining && (
                 <FieldError
                   errors={[{ message: `Max deposit is $${remaining}` }]}
@@ -100,14 +114,24 @@ export default function AddDepositForm({ userGoal }: Props) {
               <FieldLabel htmlFor="add-deposit-form-description">
                 Note (optional)
               </FieldLabel>
-              <Input
-                {...field}
-                id="add-deposit-form-description"
-                aria-invalid={fieldState.invalid}
-                placeholder="e.g Monthly savings"
-                autoComplete="off"
-                autoFocus
-              />
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="w-full">
+                    <Input
+                      {...field}
+                      id="add-deposit-form-description"
+                      aria-invalid={fieldState.invalid}
+                      placeholder="e.g Monthly savings"
+                      autoComplete="off"
+                      autoFocus
+                      disabled={isCompleted}
+                    />
+                  </div>
+                </TooltipTrigger>
+                {isCompleted && (
+                  <TooltipContent>Goal already completed</TooltipContent>
+                )}
+              </Tooltip>
 
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
@@ -117,7 +141,7 @@ export default function AddDepositForm({ userGoal }: Props) {
       <ActionButton
         className="mt-4 w-full rounded-full py-5"
         pendingText="Adding funds..."
-        disabled={watchedAmount > remaining}
+        disabled={watchedAmount > remaining || isCompleted}
       >
         Add funds
       </ActionButton>

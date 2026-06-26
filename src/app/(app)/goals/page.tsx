@@ -4,6 +4,7 @@ import { getCurrentSession } from "@/lib/auth-utils";
 import { and, asc, count, desc, eq, ilike } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import GoalsPageClient from "./_components/goals-page-client";
+import { Metadata } from "next";
 
 type Props = {
   searchParams: Promise<{
@@ -11,6 +12,11 @@ type Props = {
     dateOrder?: "asc" | "desc";
     page?: string;
   }>;
+};
+
+export const metadata: Metadata = {
+  title: "Goals",
+  //TODO: description: "",
 };
 
 export default async function GoalsPage({ searchParams }: Props) {

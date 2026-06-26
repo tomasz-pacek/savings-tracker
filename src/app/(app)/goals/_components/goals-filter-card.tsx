@@ -3,8 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { JetBrains_Mono } from "next/font/google";
-import { useQueryState } from "nuqs";
+import { parseAsInteger, useQueryState } from "nuqs";
 import ViewToggle from "./view-toggle";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group";
+import { Ellipsis, X } from "lucide-react";
 
 const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -29,6 +35,10 @@ export default function GoalsFilterCard({ startTransition }: Props) {
     shallow: false,
     startTransition,
   });
+  const [, setPage] = useQueryState(
+    "page",
+    parseAsInteger.withDefault(1).withOptions({ shallow: false }),
+  );
 
   return (
     <div className="bg-card flex w-full flex-col rounded-xl p-4">
@@ -46,15 +56,29 @@ export default function GoalsFilterCard({ startTransition }: Props) {
           >
             Search Filter
           </Label>
-          <Input
-            id="search-input"
-            type="text"
-            autoComplete="off"
-            placeholder="Search by name"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full"
-          />
+          <InputGroup>
+            <InputGroupInput
+              id="search-input"
+              type="text"
+              autoComplete="off"
+              placeholder="Search by name"
+              value={search}
+              onChange={(e) => {
+                setPage(1);
+                setSearch(e.target.value);
+              }}
+              className="w-full"
+            />
+            <InputGroupAddon
+              align={"inline-end"}
+              className="cursor-pointer"
+              onClick={() => {
+                setSearch("");
+              }}
+            >
+              <X />
+            </InputGroupAddon>
+          </InputGroup>
         </div>
 
         <div className="flex flex-col gap-2">
@@ -65,11 +89,14 @@ export default function GoalsFilterCard({ startTransition }: Props) {
           </Label>
           <Button
             onClick={() => {
+              setPage(1);
               setDateOrder((prev) => (prev === "asc" ? "desc" : "asc"));
             }}
             className="bg-muted-foreground/10 hover:bg-muted-foreground/20 w-full"
           >
-            {dateOrder === "desc" ? "Newest first" : "Oldest first"}
+            {dateOrder === "desc"
+              ? "Switch to oldest first"
+              : "Switch to newest first"}
           </Button>
         </div>
 

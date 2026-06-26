@@ -99,6 +99,8 @@ export default function DeleteAccountDialog({ isOpen, setIsOpen }: Props) {
             isPending={isDeleting}
             disabled={isDeleting}
             pendingText="Deleting..."
+            className="mt-4 w-full"
+            variant={"destructive"}
           >
             Delete account
           </ActionButton>

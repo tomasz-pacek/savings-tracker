@@ -6,6 +6,11 @@ import { Lock, TriangleAlert, User } from "lucide-react";
 import PersonalInformationForm from "./_components/personal-information-form";
 import ChangePasswordForm from "./_components/change-password-form";
 import DangerZoneForm from "./_components/danger-zone-form";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Settings",
+};
 
 export default async function UserSettingsPage() {
   const session = await getCurrentSession();

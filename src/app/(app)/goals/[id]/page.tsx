@@ -1,7 +1,4 @@
-import { db } from "@/db";
-import { goal } from "@/db/schema";
 import { getCurrentSession } from "@/lib/auth-utils";
-import { and, eq } from "drizzle-orm";
 import ActionsBar from "./_components/actions-bar";
 import GoalDetails from "./_components/goal-details";
 import DepositHistory from "./_components/deposit-history";

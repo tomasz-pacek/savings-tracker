@@ -1,10 +1,12 @@
 import GoalProgressBar from "@/components/shared/goal-progress-bar";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Goal } from "@/db/schema";
 import { calculateProgress } from "@/lib/calculate-progress";
 import { calculateRemainingValue } from "@/lib/calculate-remaining-value";
 import { formatStringDate } from "@/lib/format-string-date";
 import { formatTimestampDate } from "@/lib/format-timestamp-date";
+import { cn } from "@/lib/utils";
 import { Dot } from "lucide-react";
 
 type Props = {
@@ -20,6 +22,7 @@ export default function GoalDetails({ userGoal }: Props) {
 
   const goalPercentProgress = calculateProgress(currentAmount, targetAmount);
   const remainingValue = calculateRemainingValue(currentAmount, targetAmount);
+  const isCompleted = remainingValue === 0;
 
   return (
     <div className="mt-6 flex flex-col items-center justify-center gap-6 px-4">
@@ -40,16 +43,30 @@ export default function GoalDetails({ userGoal }: Props) {
       <Card className="w-full lg:w-3/5 lg:p-4">
         <CardContent>
           <div className="flex w-full items-center justify-between">
-            <p className="text-primary text-5xl font-medium">
+            <p
+              className={cn(
+                "text-primary text-5xl font-medium",
+                isCompleted && "text-success",
+              )}
+            >
               {goalPercentProgress}%
             </p>
-            <p className="text-muted-foreground text-lg font-medium">
-              ${remainingValue.toFixed(2)} remaining
-            </p>
+            {isCompleted ? (
+              <Badge className="text-success bg-success/20 border-success font-normal">
+                COMPLETE
+              </Badge>
+            ) : (
+              <p className="text-muted-foreground text-lg font-medium">
+                ${remainingValue.toFixed(2)} remaining
+              </p>
+            )}
           </div>
 
           <div className="my-6">
-            <GoalProgressBar value={goalPercentProgress} />
+            <GoalProgressBar
+              value={goalPercentProgress}
+              fillClassName={isCompleted ? "bg-success" : undefined}
+            />
           </div>
 
           <div className="flex items-center justify-between">
