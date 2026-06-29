@@ -36,8 +36,8 @@ export default async function Dashboard({ userGoals, goalsCount }: Props) {
           <DashbaordGoalGrid userGoals={userGoals} />
           {userGoals.length > 8 && (
             <div className="mt-6 flex w-full items-center justify-center">
-              <Button asChild>
-                <Link href={"/goals"}>See more</Link>
+              <Button asChild variant="outline">
+                <Link href={"/goals"}>See more goals</Link>
               </Button>
             </div>
           )}

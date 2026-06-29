@@ -18,7 +18,7 @@ export default function GoalsFlexViewSkeleton({ goalsLength }: Props) {
             <Skeleton className="h-4 w-48" />
             <Skeleton className="h-4 w-32" />
           </div>
-          <div className="">JEBAC DISA</div>
+          <div className=""></div>
         </div>
       ))}
     </div>

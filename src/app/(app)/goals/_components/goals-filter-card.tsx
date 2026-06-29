@@ -1,16 +1,16 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { JetBrains_Mono } from "next/font/google";
-import { parseAsInteger, useQueryState } from "nuqs";
+import { parseAsBoolean, parseAsInteger, useQueryState } from "nuqs";
 import ViewToggle from "./view-toggle";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
-import { Ellipsis, X } from "lucide-react";
+import { X } from "lucide-react";
+import SortSelect from "./sort-select";
 
 const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -30,11 +30,12 @@ export default function GoalsFilterCard({ startTransition }: Props) {
       timeMs: 500,
     },
   });
-  const [dateOrder, setDateOrder] = useQueryState("dateOrder", {
-    defaultValue: "desc",
-    shallow: false,
-    startTransition,
-  });
+  const [hideCompleted, setHideCompleted] = useQueryState(
+    "hideCompleted",
+    parseAsBoolean
+      .withDefault(false)
+      .withOptions({ shallow: false, startTransition }),
+  );
   const [, setPage] = useQueryState(
     "page",
     parseAsInteger.withDefault(1).withOptions({ shallow: false }),
@@ -48,7 +49,7 @@ export default function GoalsFilterCard({ startTransition }: Props) {
         Filters
       </p>
 
-      <div className="grid grid-cols-1 items-end gap-4 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_auto]">
+      <div className="grid grid-cols-1 items-end gap-6 sm:grid-cols-2 lg:grid-cols-[1fr_1fr_auto_1fr]">
         <div className="flex flex-col gap-2">
           <Label
             htmlFor="search-input"
@@ -85,21 +86,23 @@ export default function GoalsFilterCard({ startTransition }: Props) {
           <Label
             className={`text-muted-foreground text-sm font-medium ${jetBrainsMono.className}`}
           >
-            Sort by date
+            Sort by date and progress
+          </Label>
+          <SortSelect startTransition={startTransition} />
+        </div>
+        <div className="flex w-full flex-col gap-2">
+          <Label
+            className={`text-muted-foreground text-sm font-medium ${jetBrainsMono.className}`}
+          >
+            Completed goals
           </Label>
           <Button
-            onClick={() => {
-              setPage(1);
-              setDateOrder((prev) => (prev === "asc" ? "desc" : "asc"));
-            }}
-            className="bg-muted-foreground/10 hover:bg-muted-foreground/20 w-full"
+            variant="outline"
+            onClick={() => setHideCompleted((prev) => !prev)}
           >
-            {dateOrder === "desc"
-              ? "Switch to oldest first"
-              : "Switch to newest first"}
+            {hideCompleted ? "Show" : "Hide"}
           </Button>
         </div>
-
         <div className="flex flex-col gap-2">
           <Label
             className={`text-muted-foreground text-sm font-medium ${jetBrainsMono.className}`}
