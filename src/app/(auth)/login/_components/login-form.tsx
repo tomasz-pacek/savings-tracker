@@ -7,7 +7,6 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
 import {
   InputGroup,
   InputGroupAddon,
@@ -16,7 +15,7 @@ import {
 import { authClient } from "@/lib/auth-client";
 import { loginFormSchema } from "@/lib/validations/login-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { EyeClosedIcon, EyeIcon } from "lucide-react";
+import { AtSign, EyeClosedIcon, EyeIcon, Lock } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -65,15 +64,21 @@ export default function LoginForm() {
           control={form.control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid} className="">
-              <FieldLabel htmlFor="register-form-name">E-mail</FieldLabel>
-              <Input
-                {...field}
-                id="login-form-email"
-                aria-invalid={fieldState.invalid}
-                placeholder="e.g alice.johnson@example.com"
-                autoComplete="off"
-                autoFocus
-              />
+              <FieldLabel htmlFor="register-form-name">Email</FieldLabel>
+              <InputGroup className="rounded-sm py-5">
+                <InputGroupInput
+                  {...field}
+                  id="login-form-email"
+                  aria-invalid={fieldState.invalid}
+                  placeholder="name@example.com"
+                  autoComplete="off"
+                  autoFocus
+                  className=""
+                />
+                <InputGroupAddon className="pr-2">
+                  <AtSign />
+                </InputGroupAddon>
+              </InputGroup>
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
@@ -84,15 +89,18 @@ export default function LoginForm() {
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid} className="">
               <FieldLabel htmlFor="register-form-name">Password</FieldLabel>
-              <InputGroup>
+              <InputGroup className="rounded-sm py-5">
                 <InputGroupInput
                   {...field}
                   id="login-form-password"
                   aria-invalid={fieldState.invalid}
-                  placeholder="••••••••••••••••"
+                  placeholder="Enter your password"
                   autoComplete="off"
                   type={isPasswordVisible ? "text" : "password"}
                 />
+                <InputGroupAddon align={"inline-start"} className="pr-2">
+                  <Lock />
+                </InputGroupAddon>
                 <InputGroupAddon
                   align={"inline-end"}
                   className="cursor-pointer"
@@ -107,7 +115,7 @@ export default function LoginForm() {
         />
       </FieldGroup>
       <ActionButton
-        className="mt-6 w-full cursor-pointer"
+        className="mt-6 w-full cursor-pointer rounded-sm py-5 text-base"
         disabled={isSubmitting}
         isPending={isSubmitting}
         type="submit"

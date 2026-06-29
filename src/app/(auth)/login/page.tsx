@@ -1,22 +1,36 @@
 import { getCurrentSession } from "@/lib/auth-utils";
-import CardWrapper from "../_components/card-wrapper";
-import NewHere from "../_components/new-here";
 import { redirect } from "next/navigation";
+import BeamsBackground from "../_components/background-beam";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import LoginForm from "./_components/login-form";
+import OtherAuthOptions from "../_components/other-auth-options";
+import AuthSeparator from "../_components/auth-separator";
 
 export default async function LoginPage() {
   const session = await getCurrentSession();
   if (session?.user) redirect("/");
   return (
-    <div className="w-screen h-screen flex items-center justify-center">
-      <CardWrapper cardTitle="Login to your account">
-        <LoginForm />
-        <NewHere
-          introText="New here?"
-          actionText="Create your account"
-          href="/register"
-        />
-      </CardWrapper>
+    <div className="relative flex h-screen w-screen items-center justify-center">
+      <BeamsBackground />
+      <Card className="absolute top-1/2 left-1/2 w-md -translate-x-1/2 -translate-y-1/2 px-4 py-8">
+        <CardHeader>
+          <CardTitle className="text-xl">Welcome back</CardTitle>
+          <CardDescription>
+            Enter your credentials to access your account
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <LoginForm />
+          <AuthSeparator />
+          <OtherAuthOptions />
+        </CardContent>
+      </Card>
     </div>
   );
 }

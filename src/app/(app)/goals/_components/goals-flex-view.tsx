@@ -7,7 +7,7 @@ import { calculateProgress } from "@/lib/calculate-progress";
 import { formatStringDate } from "@/lib/format-string-date";
 import { formatTimestampDate } from "@/lib/format-timestamp-date";
 import { cn } from "@/lib/utils";
-import { Calendar, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 type Props = {

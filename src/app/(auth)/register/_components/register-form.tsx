@@ -10,14 +10,13 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
 import { useState } from "react";
-import { EyeClosedIcon, EyeIcon } from "lucide-react";
+import { AtSign, EyeClosedIcon, EyeIcon, Lock, User } from "lucide-react";
 import ActionButton from "@/components/shared/action-button";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
@@ -25,9 +24,18 @@ import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
   const router = useRouter();
-  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
-  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
-    useState<boolean>(false);
+  const [show, setShow] = useState({
+    password: false,
+    confirmPassword: false,
+  });
+
+  const togglePassword = (value: keyof typeof show) => {
+    setShow((prev) => ({
+      ...prev,
+      [value]: !prev[value],
+    }));
+  };
+
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof registerFormSchema>>({
@@ -71,13 +79,18 @@ export default function RegisterForm() {
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid} className="">
               <FieldLabel htmlFor="register-form-name">Name</FieldLabel>
-              <Input
-                {...field}
-                id="register-form-name"
-                aria-invalid={fieldState.invalid}
-                placeholder="e.g Alice Johnson"
-                autoComplete="off"
-              />
+              <InputGroup className="rounded-sm py-5">
+                <InputGroupInput
+                  {...field}
+                  id="register-form-name"
+                  aria-invalid={fieldState.invalid}
+                  placeholder="John Doe"
+                  autoComplete="off"
+                />
+                <InputGroupAddon className="pr-2">
+                  <User />
+                </InputGroupAddon>
+              </InputGroup>
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
@@ -88,13 +101,18 @@ export default function RegisterForm() {
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid} className="">
               <FieldLabel htmlFor="register-form-email">E-mail</FieldLabel>
-              <Input
-                {...field}
-                id="register-form-email"
-                aria-invalid={fieldState.invalid}
-                placeholder="e.g alice.johnson@example.com"
-                autoComplete="off"
-              />
+              <InputGroup className="rounded-sm py-5">
+                <InputGroupInput
+                  {...field}
+                  id="register-form-email"
+                  aria-invalid={fieldState.invalid}
+                  placeholder="name@example.com"
+                  autoComplete="off"
+                />
+                <InputGroupAddon className="pr-2">
+                  <AtSign />
+                </InputGroupAddon>
+              </InputGroup>
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
@@ -105,21 +123,24 @@ export default function RegisterForm() {
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid} className="">
               <FieldLabel htmlFor="register-form-password">Password</FieldLabel>
-              <InputGroup>
+              <InputGroup className="rounded-sm py-5">
                 <InputGroupInput
                   {...field}
                   id="register-form-password"
                   aria-invalid={fieldState.invalid}
-                  placeholder="••••••••••••••••"
+                  placeholder="Enter your password"
                   autoComplete="off"
-                  type={isPasswordVisible ? "text" : "password"}
+                  type={show.password ? "text" : "password"}
                 />
+                <InputGroupAddon className="pr-2">
+                  <Lock />
+                </InputGroupAddon>
                 <InputGroupAddon
                   align={"inline-end"}
-                  onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+                  onClick={() => togglePassword("password")}
                   className="cursor-pointer"
                 >
-                  {isPasswordVisible ? <EyeClosedIcon /> : <EyeIcon />}
+                  {show.password ? <EyeClosedIcon /> : <EyeIcon />}
                 </InputGroupAddon>
               </InputGroup>
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -134,23 +155,24 @@ export default function RegisterForm() {
               <FieldLabel htmlFor="register-form-confirm-password">
                 Confirm Password
               </FieldLabel>
-              <InputGroup>
+              <InputGroup className="rounded-sm py-5">
                 <InputGroupInput
                   {...field}
                   id="register-form-confirm-password"
                   aria-invalid={fieldState.invalid}
-                  placeholder="••••••••••••••••"
+                  placeholder="Confirm your password"
                   autoComplete="off"
-                  type={isPasswordVisible ? "text" : "password"}
+                  type={show.confirmPassword ? "text" : "password"}
                 />
+                <InputGroupAddon className="pr-2">
+                  <Lock />
+                </InputGroupAddon>
                 <InputGroupAddon
                   align={"inline-end"}
-                  onClick={() =>
-                    setIsConfirmPasswordVisible(!isConfirmPasswordVisible)
-                  }
+                  onClick={() => togglePassword("confirmPassword")}
                   className="cursor-pointer"
                 >
-                  {isConfirmPasswordVisible ? <EyeClosedIcon /> : <EyeIcon />}
+                  {show.confirmPassword ? <EyeClosedIcon /> : <EyeIcon />}
                 </InputGroupAddon>
               </InputGroup>
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -159,10 +181,11 @@ export default function RegisterForm() {
         />
       </FieldGroup>
       <ActionButton
-        className="mt-6 w-full cursor-pointer"
+        className="mt-6 w-full cursor-pointer rounded-sm py-5 text-base"
         disabled={isSubmitting}
         isPending={isSubmitting}
         type="submit"
+        pendingText="Registering..."
       >
         Register
       </ActionButton>
