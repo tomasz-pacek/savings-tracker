@@ -135,7 +135,7 @@ export default function EditGoalForm({
                 aria-invalid={fieldState.invalid}
                 autoComplete="off"
                 type="datetime-local"
-                className="box-border h-10.5 w-full min-w-0 rounded-sm py-0 text-base"
+                className="box-border h-10.5 w-full max-w-full min-w-0 rounded-sm py-0 text-base"
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
