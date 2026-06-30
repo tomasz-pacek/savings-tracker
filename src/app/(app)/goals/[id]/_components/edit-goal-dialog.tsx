@@ -25,7 +25,7 @@ export default function EditGoalDialog({
     <Dialog open={isOpen} onOpenChange={(open) => !open && close()}>
       <DialogContent className="p-8">
         <DialogHeader>
-          <DialogTitle>Edit goal</DialogTitle>
+          <DialogTitle className="text-xl">Edit goal</DialogTitle>
         </DialogHeader>
         <EditGoalForm
           goalName={goalName}

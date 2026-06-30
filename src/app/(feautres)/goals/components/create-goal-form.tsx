@@ -10,12 +10,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { createGoalFormSchema } from "@/lib/validations/create-goal-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CirclePlus } from "lucide-react";
+import { CirclePlus, DollarSign, Target } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 import { toast } from "sonner";
 import { createGoalAction } from "../actions";
 import { useCreateGoalDialogStore } from "../store/use-create-goal-dialog-store";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group";
 
 export default function CreateGoalForm() {
   const { close } = useCreateGoalDialogStore();
@@ -52,14 +57,20 @@ export default function CreateGoalForm() {
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid} className="">
               <FieldLabel htmlFor="create-goal-name">Goal name</FieldLabel>
-              <Input
-                {...field}
-                id="create-goal-name"
-                aria-invalid={fieldState.invalid}
-                placeholder="MacBook Pro M4"
-                autoComplete="off"
-                autoFocus
-              />
+              <InputGroup className="rounded-sm py-5">
+                <InputGroupInput
+                  {...field}
+                  id="create-goal-name"
+                  aria-invalid={fieldState.invalid}
+                  placeholder="MacBook Pro M4"
+                  autoComplete="off"
+                  autoFocus
+                />
+                <InputGroupAddon className="pr-2">
+                  <Target />
+                </InputGroupAddon>
+              </InputGroup>
+
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
@@ -72,17 +83,23 @@ export default function CreateGoalForm() {
               <FieldLabel htmlFor="create-goal-target-amount">
                 Target Amount
               </FieldLabel>
-              <Input
-                {...field}
-                id="create-goal-target-amount"
-                aria-invalid={fieldState.invalid}
-                autoComplete="off"
-                type="number"
-                onChange={(e) => {
-                  const value = e.target.valueAsNumber;
-                  field.onChange(isNaN(value) ? "" : value);
-                }}
-              />
+              <InputGroup className="rounded-sm py-5">
+                <InputGroupInput
+                  {...field}
+                  id="create-goal-target-amount"
+                  aria-invalid={fieldState.invalid}
+                  autoComplete="off"
+                  type="number"
+                  onChange={(e) => {
+                    const value = e.target.valueAsNumber;
+                    field.onChange(isNaN(value) ? "" : value);
+                  }}
+                />
+                <InputGroupAddon className="pr-2">
+                  <DollarSign />
+                </InputGroupAddon>
+              </InputGroup>
+
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
@@ -101,20 +118,20 @@ export default function CreateGoalForm() {
                 aria-invalid={fieldState.invalid}
                 autoComplete="off"
                 type="datetime-local"
+                className="rounded-sm py-5"
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
         />
       </FieldGroup>
-      <ActionButton className="w-full mt-6 font-medium">
+      <ActionButton
+        className="mt-6 w-full rounded-sm py-5 text-base"
+        pendingText="Creating goal..."
+      >
         <CirclePlus />
-        Add new goal
+        Create new goal
       </ActionButton>
     </form>
   );
 }
-
-//name
-//targetamount
-//deadline

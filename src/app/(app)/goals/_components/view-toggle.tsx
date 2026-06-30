@@ -27,13 +27,13 @@ export default function ViewToggle({ startTransition }: Props) {
               key={value}
               onClick={() => setView(value)}
               className={cn(
-                "bg-muted-foreground/10 cursor-pointer rounded-lg border p-2 transition-all duration-300",
+                "bg-muted-foreground/10 flex size-10.5 cursor-pointer items-center justify-center rounded-sm border transition-all duration-300",
                 active
                   ? "border-muted-foreground"
                   : "hover:border-muted-foreground/50 border-transparent",
               )}
             >
-              <Icon size={14} />
+              <Icon size={18} />
             </button>
           );
         })}

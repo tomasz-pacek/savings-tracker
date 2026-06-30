@@ -74,6 +74,11 @@ export default async function GoalsPage({ searchParams }: Props) {
   const totalPages = Math.ceil(total / PAGE_SIZE);
 
   return (
-    <GoalsPageClient goals={goals} currentPage={page} totalPages={totalPages} />
+    <GoalsPageClient
+      goals={goals}
+      currentPage={page}
+      totalPages={totalPages}
+      totalGoalsCount={total}
+    />
   );
 }

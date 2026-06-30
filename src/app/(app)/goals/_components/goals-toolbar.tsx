@@ -4,7 +4,11 @@ import ActionButton from "@/components/shared/action-button";
 import { exportUserDataAsCSV } from "../actions";
 import { useState } from "react";
 
-export default function GoalsToolbar() {
+type Props = {
+  totalGoalsCount: number;
+};
+
+export default function GoalsToolbar({ totalGoalsCount }: Props) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleExport = async () => {
@@ -28,19 +32,23 @@ export default function GoalsToolbar() {
       });
   };
   return (
-    <div className="w-full">
-      <div className="flex w-full flex-row items-center justify-end">
-        <ActionButton
-          variant={"outline"}
-          size={"sm"}
-          isPending={isLoading}
-          disabled={isLoading}
-          pendingText="Exporting..."
-          onClick={handleExport}
-        >
-          Export to CSV
-        </ActionButton>
-      </div>
-    </div>
+    <>
+      {totalGoalsCount >= 1 && (
+        <div className="w-full">
+          <div className="flex w-full flex-row items-center justify-end">
+            <ActionButton
+              variant={"outline"}
+              size={"sm"}
+              isPending={isLoading}
+              disabled={isLoading}
+              pendingText="Exporting..."
+              onClick={handleExport}
+            >
+              Export to CSV
+            </ActionButton>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

@@ -11,18 +11,20 @@ type Props = {
   goals: Goal[];
   currentPage: number;
   totalPages: number;
+  totalGoalsCount: number;
 };
 
 export default function GoalsPageClient({
   goals,
   currentPage,
   totalPages,
+  totalGoalsCount,
 }: Props) {
   const [isPending, startTransition] = useTransition();
 
   return (
     <main className="center container mx-auto flex flex-col justify-center gap-3 p-6">
-      <GoalsToolbar />
+      <GoalsToolbar totalGoalsCount={totalGoalsCount} />
       <GoalsFilterCard startTransition={startTransition} />
       <GoalsView goals={goals} isPending={isPending} />
       <GoalsPagination currentPage={currentPage} totalPages={totalPages} />

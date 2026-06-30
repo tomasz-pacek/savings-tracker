@@ -11,28 +11,28 @@ import { Plus } from "lucide-react";
 
 export default function EmptyDashboard() {
   return (
-    <div className="min-h-screen flex flex-col w-full">
+    <div className="flex min-h-screen w-full flex-col">
       {/* Empty State Content */}
       <main className="flex-1 p-6">
-        <div className="max-w-4xl mx-auto">
+        <div className="mx-auto max-w-6xl">
           {/* Stats Cards - Empty */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-3">
             <Card className="bg-primary text-primary-foreground border-0">
-              <CardContent className="flex flex-col justify-between h-full gap-4">
-                <p className="text-sm mb-1 font-medium">Total savings</p>
+              <CardContent className="flex h-full flex-col justify-between gap-4">
+                <p className="mb-1 text-sm font-medium">Total savings</p>
                 <p className="text-4xl font-bold">0,00 $</p>
               </CardContent>
             </Card>
             <Card>
-              <CardContent className="flex flex-col justify-between h-full gap-4">
-                <p className="text-sm mb-1 font-medium">Active goals</p>
-                <p className="text-4xl font-bold text-primary">0</p>
+              <CardContent className="flex h-full flex-col justify-between gap-4">
+                <p className="mb-1 text-sm font-medium">Active goals</p>
+                <p className="text-primary text-4xl font-bold">0</p>
               </CardContent>
             </Card>
             <Card>
-              <CardContent className="flex flex-col justify-between h-full gap-4">
-                <p className="text-sm mb-1 font-medium">Goals completed </p>
-                <p className="text-4xl font-bold text-success">0</p>
+              <CardContent className="flex h-full flex-col justify-between gap-4">
+                <p className="mb-1 text-sm font-medium">Goals completed </p>
+                <p className="text-success text-4xl font-bold">0</p>
               </CardContent>
             </Card>
           </div>

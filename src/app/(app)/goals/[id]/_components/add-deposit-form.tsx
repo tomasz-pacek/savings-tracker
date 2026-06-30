@@ -74,7 +74,7 @@ export default function AddDepositForm({ userGoal }: Props) {
               <FieldLabel htmlFor="add-deposit-form-amount">Amount</FieldLabel>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <InputGroup>
+                  <InputGroup className="rounded-sm py-5">
                     <InputGroupInput
                       {...field}
                       id="add-deposit-form-amount"
@@ -121,10 +121,11 @@ export default function AddDepositForm({ userGoal }: Props) {
                       {...field}
                       id="add-deposit-form-description"
                       aria-invalid={fieldState.invalid}
-                      placeholder="e.g Monthly savings"
+                      placeholder="Monthly savings"
                       autoComplete="off"
                       autoFocus
                       disabled={isCompleted}
+                      className="rounded-sm py-5"
                     />
                   </div>
                 </TooltipTrigger>
@@ -139,7 +140,7 @@ export default function AddDepositForm({ userGoal }: Props) {
         />
       </FieldGroup>
       <ActionButton
-        className="mt-4 w-full rounded-full py-5"
+        className="mt-4 w-full rounded-sm py-5"
         pendingText="Adding funds..."
         disabled={watchedAmount > remaining || isCompleted}
       >

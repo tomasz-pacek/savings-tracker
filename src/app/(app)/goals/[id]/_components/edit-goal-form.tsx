@@ -16,6 +16,12 @@ import { toast } from "sonner";
 import { useEditGoalDialogStore } from "../store/use-edit-goal-dialog-store";
 import { updateGoalDetails } from "../actions";
 import { useParams } from "next/navigation";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group";
+import { DollarSign, Target } from "lucide-react";
 
 type Props = {
   goalName: string;
@@ -68,14 +74,20 @@ export default function EditGoalForm({
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid} className="">
               <FieldLabel htmlFor="create-goal-name">Goal name</FieldLabel>
-              <Input
-                {...field}
-                id="create-goal-name"
-                aria-invalid={fieldState.invalid}
-                placeholder="MacBook Pro M4"
-                autoComplete="off"
-                autoFocus
-              />
+              <InputGroup className="rounded-sm py-5">
+                <InputGroupInput
+                  {...field}
+                  id="create-goal-name"
+                  aria-invalid={fieldState.invalid}
+                  placeholder="MacBook Pro M4"
+                  autoComplete="off"
+                  autoFocus
+                />
+                <InputGroupAddon className="pr-2">
+                  <Target />
+                </InputGroupAddon>
+              </InputGroup>
+
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
@@ -88,18 +100,24 @@ export default function EditGoalForm({
               <FieldLabel htmlFor="create-goal-target-amount">
                 Target Amount
               </FieldLabel>
-              <Input
-                {...field}
-                id="create-goal-target-amount"
-                aria-invalid={fieldState.invalid}
-                autoComplete="off"
-                autoFocus
-                type="number"
-                onChange={(e) => {
-                  const value = e.target.valueAsNumber;
-                  field.onChange(isNaN(value) ? "" : value);
-                }}
-              />
+              <InputGroup className="rounded-sm py-5">
+                <InputGroupInput
+                  {...field}
+                  id="create-goal-target-amount"
+                  aria-invalid={fieldState.invalid}
+                  autoComplete="off"
+                  autoFocus
+                  type="number"
+                  onChange={(e) => {
+                    const value = e.target.valueAsNumber;
+                    field.onChange(isNaN(value) ? "" : value);
+                  }}
+                />
+                <InputGroupAddon className="pr-2">
+                  <DollarSign />
+                </InputGroupAddon>
+              </InputGroup>
+
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
@@ -119,13 +137,14 @@ export default function EditGoalForm({
                 autoComplete="off"
                 autoFocus
                 type="datetime-local"
+                className="rounded-sm py-5"
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
         />
       </FieldGroup>
-      <ActionButton className="mt-6 w-full font-medium">
+      <ActionButton className="mt-6 w-full rounded-sm py-5 text-base">
         Update goal
       </ActionButton>
     </form>

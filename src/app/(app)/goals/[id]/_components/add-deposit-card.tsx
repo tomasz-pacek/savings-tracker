@@ -9,9 +9,9 @@ type Props = {
 export default function AddDepositCard({ userGoal }: Props) {
   return (
     <div className="mt-6 flex items-center justify-center px-4">
-      <Card className="w-full lg:w-3/5">
+      <Card className="w-full px-4 py-6 lg:w-3/5">
         <CardHeader>
-          <CardTitle>Add deposit</CardTitle>
+          <CardTitle className="text-xl">Add deposit</CardTitle>
         </CardHeader>
         <CardContent>
           <AddDepositForm userGoal={userGoal} />

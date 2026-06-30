@@ -67,7 +67,7 @@ export default function GoalsFilterCard({ startTransition }: Props) {
           >
             Search Filter
           </Label>
-          <InputGroup>
+          <InputGroup className="rounded-sm py-5">
             <InputGroupInput
               id="search-input"
               ref={searchInputRef}
@@ -117,6 +117,7 @@ export default function GoalsFilterCard({ startTransition }: Props) {
           <Button
             variant="outline"
             onClick={() => setHideCompleted((prev) => !prev)}
+            className="rounded-sm py-5"
           >
             {hideCompleted ? "Show" : "Hide"}
           </Button>

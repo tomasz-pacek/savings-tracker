@@ -2,7 +2,7 @@ import { createAuthClient } from "better-auth/react";
 
 const baseURL =
   process.env.NODE_ENV === "development"
-    ? "https://localhost:3000"
+    ? "http://localhost:3000"
     : typeof window !== "undefined"
       ? window.location.origin
       : (process.env.NEXT_PUBLIC_SITE_URL as string);

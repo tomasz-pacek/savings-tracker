@@ -31,7 +31,7 @@ export default function DeleteGoalDialog() {
         <DialogHeader>
           <DialogTitle>Are you sure you want to delete this goal?</DialogTitle>
         </DialogHeader>
-        <div className="mt-4 flex w-full flex-col items-center justify-center gap-3">
+        <form className="mt-4 flex w-full flex-col items-center justify-center gap-3">
           <Label
             htmlFor="confirmation-input"
             className="text-muted-foreground whitespace-nowrap"
@@ -40,17 +40,18 @@ export default function DeleteGoalDialog() {
             to permanently delete this goal.{" "}
           </Label>
           <Input
+            id="confirmation-input"
             type="text"
             autoFocus
             autoComplete="off"
-            id="confirmation-input"
             value={confirmationInputValue}
             onChange={(e) => {
               setConfirmationInputValue(e.target.value);
             }}
+            className="rounded-sm py-5"
           />
           <ActionButton
-            className="w-full"
+            className="w-full rounded-sm py-5 text-base"
             disabled={confirmationInputValue !== "delete"}
             pendingText="Deleting..."
             isPending={isPending}
@@ -71,7 +72,7 @@ export default function DeleteGoalDialog() {
           >
             Delete
           </ActionButton>
-        </div>
+        </form>
       </DialogContent>
     </Dialog>
   );

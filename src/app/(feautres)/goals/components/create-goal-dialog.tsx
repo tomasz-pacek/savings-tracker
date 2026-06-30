@@ -15,7 +15,7 @@ export default function CreateGoalDialog() {
     <Dialog open={isOpen} onOpenChange={(open) => !open && close()}>
       <DialogContent className="p-8">
         <DialogHeader>
-          <DialogTitle>Create goal</DialogTitle>
+          <DialogTitle className="text-xl">Create goal</DialogTitle>
         </DialogHeader>
         <CreateGoalForm />
       </DialogContent>

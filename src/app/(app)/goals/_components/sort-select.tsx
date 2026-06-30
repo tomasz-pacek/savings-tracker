@@ -22,10 +22,10 @@ export default function SortSelect({ startTransition }: Props) {
   });
   return (
     <Select value={sort} onValueChange={(value) => setSort(value)}>
-      <SelectTrigger className="w-full">
+      <SelectTrigger className="w-full rounded-sm py-5">
         <SelectValue placeholder="Sort" />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent className="rounded-sm" position="popper">
         <SelectGroup>
           <SelectItem value="date-desc">Date: newest first</SelectItem>
           <SelectItem value="date-asc">Date: oldest first</SelectItem>
