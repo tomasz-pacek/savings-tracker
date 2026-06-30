@@ -23,7 +23,10 @@ export default function EditGoalDialog({
   const { isOpen, close } = useEditGoalDialogStore();
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && close()}>
-      <DialogContent className="p-8">
+      <DialogContent
+        className="p-8"
+        onOpenAutoFocus={(e) => e.preventDefault()}
+      >
         <DialogHeader>
           <DialogTitle className="text-xl">Edit goal</DialogTitle>
         </DialogHeader>
