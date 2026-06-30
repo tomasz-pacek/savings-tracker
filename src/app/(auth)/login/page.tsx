@@ -25,7 +25,7 @@ export default async function LoginPage() {
   return (
     <div className="relative flex h-screen w-screen items-center justify-center">
       <BeamsBackground />
-      <Card className="absolute top-1/2 left-1/2 w-md -translate-x-1/2 -translate-y-1/2 px-4 py-8">
+      <Card className="absolute top-1/2 left-1/2 mx-4 w-full -translate-x-1/2 -translate-y-1/2 px-4 py-8 sm:w-md">
         <CardHeader>
           <CardTitle className="text-xl">Welcome back</CardTitle>
           <CardDescription>
