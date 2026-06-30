@@ -106,7 +106,6 @@ export default function EditGoalForm({
                   id="create-goal-target-amount"
                   aria-invalid={fieldState.invalid}
                   autoComplete="off"
-                  autoFocus
                   type="number"
                   onChange={(e) => {
                     const value = e.target.valueAsNumber;
@@ -135,7 +134,6 @@ export default function EditGoalForm({
                 id="create-goal-deadline"
                 aria-invalid={fieldState.invalid}
                 autoComplete="off"
-                autoFocus
                 type="datetime-local"
                 className="rounded-sm py-5"
               />

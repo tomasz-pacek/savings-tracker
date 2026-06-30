@@ -137,4 +137,9 @@
   html {
     @apply font-sans;
   }
+  input[type="datetime-local"] {
+    font-size: 16px;
+    line-height: 1.2;
+    min-height: 44px;
+  }
 }

@@ -60,7 +60,7 @@ export default async function DepositHistory({ goalId }: Props) {
           ))}
         </div>
       ) : (
-        <div className="text-muted-foreground mt-6">
+        <div className="text-muted-foreground my-6">
           You don&apos;t have any deposits yet.
         </div>
       )}

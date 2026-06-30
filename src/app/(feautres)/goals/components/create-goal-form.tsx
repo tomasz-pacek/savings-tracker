@@ -7,7 +7,6 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
 import { createGoalFormSchema } from "@/lib/validations/create-goal-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CirclePlus, DollarSign, Target } from "lucide-react";
@@ -21,6 +20,7 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
+import { Input } from "@/components/ui/input";
 
 export default function CreateGoalForm() {
   const { close } = useCreateGoalDialogStore();

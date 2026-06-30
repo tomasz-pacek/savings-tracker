@@ -12,10 +12,10 @@ export default function ActionsBar() {
   const router = useRouter();
 
   return (
-    <div className="w-full flex items-center justify-between">
+    <div className="flex w-full items-center justify-between px-2">
       {/* Back Button */}
       <Button
-        className="bg-transparent text-muted-foreground hover:bg-muted-foreground/10"
+        className="text-muted-foreground hover:bg-muted-foreground/10 bg-transparent"
         onClick={() => router.back()}
       >
         <ChevronLeft />
@@ -25,13 +25,13 @@ export default function ActionsBar() {
       <div className="flex items-center justify-center gap-x-2">
         <Button
           onClick={() => openEditDialog()}
-          className="bg-transparent text-foreground hover:bg-foreground/10"
+          className="text-foreground hover:bg-foreground/10 bg-transparent"
         >
           Edit goal
         </Button>
         <Button
           onClick={() => openDeleteDialog()}
-          className="bg-transparent text-destructive hover:bg-destructive/10"
+          className="text-destructive hover:bg-destructive/10 bg-transparent"
         >
           Delete goal
         </Button>
