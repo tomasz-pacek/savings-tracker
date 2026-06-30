@@ -15,7 +15,6 @@ import { deleteGoal } from "../actions";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import ActionButton from "@/components/shared/action-button";
-import { cn } from "@/lib/utils";
 
 export default function DeleteGoalDialog() {
   const { isOpen, close } = useDeleteGoalDialogStore();
@@ -28,7 +27,7 @@ export default function DeleteGoalDialog() {
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && close()}>
-      <DialogContent className={cn("p-8")}>
+      <DialogContent className="p-8">
         <DialogHeader>
           <DialogTitle>Are you sure you want to delete this goal?</DialogTitle>
         </DialogHeader>
@@ -44,6 +43,7 @@ export default function DeleteGoalDialog() {
             id="confirmation-input"
             type="text"
             autoComplete="off"
+            autoFocus={false}
             value={confirmationInputValue}
             onChange={(e) => {
               setConfirmationInputValue(e.target.value);
