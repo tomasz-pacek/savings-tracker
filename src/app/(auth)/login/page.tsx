@@ -23,9 +23,8 @@ export default async function LoginPage() {
   const session = await getCurrentSession();
   if (session?.user) redirect("/");
   return (
-    <div className="relative flex h-screen w-screen items-center justify-center">
-      <BeamsBackground />
-      <Card className="absolute top-1/2 left-1/2 mx-4 w-full -translate-x-1/2 -translate-y-1/2 px-4 py-8 sm:w-md">
+    <BeamsBackground>
+      <Card className="absolute top-1/2 left-1/2 w-full -translate-1/2 px-4 py-8 sm:w-md">
         <CardHeader>
           <CardTitle className="text-xl">Welcome back</CardTitle>
           <CardDescription>
@@ -43,6 +42,6 @@ export default async function LoginPage() {
           />
         </CardContent>
       </Card>
-    </div>
+    </BeamsBackground>
   );
 }

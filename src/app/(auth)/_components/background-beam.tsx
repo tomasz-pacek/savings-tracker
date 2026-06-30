@@ -44,6 +44,7 @@ function createBeam(width: number, height: number): Beam {
 export default function BeamsBackground({
   className,
   intensity = "strong",
+  children,
 }: AnimatedGradientBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const beamsRef = useRef<Beam[]>([]);
@@ -193,6 +194,7 @@ export default function BeamsBackground({
           backdropFilter: "blur(50px)",
         }}
       />
+      {children}
     </div>
   );
 }
