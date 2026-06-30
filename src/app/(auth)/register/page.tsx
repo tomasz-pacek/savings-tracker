@@ -1,5 +1,4 @@
 import { getCurrentSession } from "@/lib/auth-utils";
-import NewHere from "../_components/new-here";
 import RegisterForm from "./_components/register-form";
 import { redirect } from "next/navigation";
 import BeamsBackground from "../_components/background-beam";
@@ -12,6 +11,13 @@ import {
 } from "@/components/ui/card";
 import AuthSeparator from "../_components/auth-separator";
 import OtherAuthOptions from "../_components/other-auth-options";
+import NewHere from "../_components/new-here";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Register",
+  // TODO: `description: ""
+};
 
 export default async function RegisterPage() {
   const session = await getCurrentSession();
@@ -30,6 +36,11 @@ export default async function RegisterPage() {
           <RegisterForm />
           <AuthSeparator />
           <OtherAuthOptions />
+          <NewHere
+            href="/login"
+            hrefText="Login"
+            span="Already have an account?"
+          />
         </CardContent>
       </Card>
     </div>

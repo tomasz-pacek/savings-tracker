@@ -8,11 +8,16 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group";
 import { authClient } from "@/lib/auth-client";
 import { personalInformationFormSchema } from "@/lib/validations/personal-information-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { User } from "better-auth";
-import { Check, X } from "lucide-react";
+import { AtSign, Check, User as UserIcon, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -96,13 +101,18 @@ export default function PersonalInformationForm({ user }: Props) {
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <FieldLabel htmlFor={field.name}>Name</FieldLabel>
-              <Input
-                {...field}
-                id={field.name}
-                aria-invalid={fieldState.invalid}
-                placeholder=""
-                autoComplete="off"
-              />
+              <InputGroup className="rounded-sm py-5">
+                <InputGroupInput
+                  {...field}
+                  id={field.name}
+                  aria-invalid={fieldState.invalid}
+                  placeholder=""
+                  autoComplete="off"
+                />
+                <InputGroupAddon className="pr-2">
+                  <UserIcon />
+                </InputGroupAddon>
+              </InputGroup>
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
@@ -113,13 +123,19 @@ export default function PersonalInformationForm({ user }: Props) {
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <FieldLabel htmlFor={field.name}>E-mail</FieldLabel>
-              <Input
-                {...field}
-                id={field.name}
-                aria-invalid={fieldState.invalid}
-                placeholder=""
-                autoComplete="off"
-              />
+              <InputGroup className="rounded-sm py-5">
+                <InputGroupInput
+                  {...field}
+                  id={field.name}
+                  aria-invalid={fieldState.invalid}
+                  placeholder=""
+                  autoComplete="off"
+                  className="rounded-sm py-5"
+                />
+                <InputGroupAddon>
+                  <AtSign />
+                </InputGroupAddon>
+              </InputGroup>
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
@@ -141,6 +157,7 @@ export default function PersonalInformationForm({ user }: Props) {
           pendingText="Saving..."
           isPending={form.formState.isSubmitting}
           disabled={!form.formState.isDirty || form.formState.isSubmitting}
+          className="px-4"
         >
           Save
         </ActionButton>

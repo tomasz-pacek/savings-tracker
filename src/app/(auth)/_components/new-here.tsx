@@ -1,19 +1,20 @@
-import Link from "next/link";
+"use client";
+
 import { Route } from "next";
+import Link from "next/link";
 
 type Props = {
-  introText: string;
-  actionText: string;
   href: Route;
+  span: string;
+  hrefText: string;
 };
 
-export default function NewHere({ introText, actionText, href }: Props) {
+export default function NewHere({ href, span, hrefText }: Props) {
   return (
-    <div className="mt-6 flex w-full items-center justify-center gap-x-1 whitespace-nowrap">
-      <p>{introText}</p>
-      <p>{actionText}</p>
-      <Link href={href} className="text-sky-500 underline">
-        here
+    <div className="mt-4 flex w-full items-center justify-center gap-1">
+      <span>{span}</span>
+      <Link href={href} className="text-sky-600 hover:underline">
+        {hrefText}
       </Link>
     </div>
   );

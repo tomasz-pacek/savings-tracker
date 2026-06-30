@@ -16,7 +16,7 @@ import {
 import { authClient } from "@/lib/auth-client";
 import { changePasswordFormSchema } from "@/lib/validations/change-password-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Eye, EyeClosed } from "lucide-react";
+import { Eye, EyeClosed, Lock } from "lucide-react";
 import { useState } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
@@ -88,15 +88,18 @@ export default function ChangePasswordForm() {
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel htmlFor={field.name}>Current Password</FieldLabel>
-                <InputGroup>
+                <InputGroup className="rounded-sm py-5">
                   <InputGroupInput
                     {...field}
                     id={field.name}
                     aria-invalid={fieldState.invalid}
-                    placeholder="••••••••••••••••"
+                    placeholder="Enter your password"
                     autoComplete="off"
                     type={showPassword.currentPassword ? "text" : "password"}
                   />
+                  <InputGroupAddon className="pr-2">
+                    <Lock />
+                  </InputGroupAddon>
                   <InputGroupAddon
                     className="cursor-pointer"
                     align="inline-end"
@@ -117,15 +120,18 @@ export default function ChangePasswordForm() {
             render={({ field, fieldState }) => (
               <Field data-invalid={fieldState.invalid}>
                 <FieldLabel htmlFor={field.name}>New Password</FieldLabel>
-                <InputGroup>
+                <InputGroup className="rounded-sm py-5">
                   <InputGroupInput
                     {...field}
                     id={field.name}
                     aria-invalid={fieldState.invalid}
-                    placeholder="••••••••••••••••"
+                    placeholder="Enter new password"
                     autoComplete="off"
                     type={showPassword.newPassword ? "text" : "password"}
                   />
+                  <InputGroupAddon className="pr-2">
+                    <Lock />
+                  </InputGroupAddon>
                   <InputGroupAddon
                     className="cursor-pointer"
                     align="inline-end"
@@ -148,15 +154,18 @@ export default function ChangePasswordForm() {
                 <FieldLabel htmlFor={field.name}>
                   Confirm New Password
                 </FieldLabel>
-                <InputGroup>
+                <InputGroup className="rounded-sm py-5">
                   <InputGroupInput
                     {...field}
                     id={field.name}
                     aria-invalid={fieldState.invalid}
-                    placeholder="••••••••••••••••"
+                    placeholder="Confirm new password"
                     autoComplete="off"
                     type={showPassword.confirmNewPassword ? "text" : "password"}
                   />
+                  <InputGroupAddon className="pr-2">
+                    <Lock />
+                  </InputGroupAddon>
                   <InputGroupAddon
                     className="cursor-pointer"
                     align="inline-end"
@@ -179,6 +188,7 @@ export default function ChangePasswordForm() {
           form="change-password-form"
           disabled={!form.formState.isValid}
           type="submit"
+          className="px-4"
         >
           Save
         </ActionButton>

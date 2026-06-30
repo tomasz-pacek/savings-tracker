@@ -11,6 +11,9 @@ import {
 } from "@/components/ui/input-group";
 import { X } from "lucide-react";
 import SortSelect from "./sort-select";
+import { useRef } from "react";
+import { useFocusShortcut } from "@/hooks/use-focus-shortcut";
+import { Kbd, KbdGroup } from "@/components/ui/kbd";
 
 const jetBrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -41,6 +44,13 @@ export default function GoalsFilterCard({ startTransition }: Props) {
     parseAsInteger.withDefault(1).withOptions({ shallow: false }),
   );
 
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
+  useFocusShortcut(searchInputRef, "k");
+
+  const isMac =
+    typeof navigator !== "undefined" &&
+    navigator.platform.toUpperCase().includes("MAC");
+
   return (
     <div className="bg-card flex w-full flex-col rounded-xl p-4">
       <p
@@ -60,6 +70,7 @@ export default function GoalsFilterCard({ startTransition }: Props) {
           <InputGroup>
             <InputGroupInput
               id="search-input"
+              ref={searchInputRef}
               type="text"
               autoComplete="off"
               placeholder="Search by name"
@@ -78,6 +89,13 @@ export default function GoalsFilterCard({ startTransition }: Props) {
               }}
             >
               <X />
+            </InputGroupAddon>
+            <InputGroupAddon align={"inline-end"}>
+              <KbdGroup>
+                <Kbd>{isMac ? "⌘" : "Ctrl"}</Kbd>
+                <span>+</span>
+                <Kbd>K</Kbd>
+              </KbdGroup>
             </InputGroupAddon>
           </InputGroup>
         </div>

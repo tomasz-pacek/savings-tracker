@@ -11,6 +11,13 @@ import {
 import LoginForm from "./_components/login-form";
 import OtherAuthOptions from "../_components/other-auth-options";
 import AuthSeparator from "../_components/auth-separator";
+import NewHere from "../_components/new-here";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Login",
+  // TODO: description: ""
+};
 
 export default async function LoginPage() {
   const session = await getCurrentSession();
@@ -29,6 +36,11 @@ export default async function LoginPage() {
           <LoginForm />
           <AuthSeparator />
           <OtherAuthOptions />
+          <NewHere
+            href="/register"
+            hrefText="Register Now"
+            span="Don't have an account?"
+          />
         </CardContent>
       </Card>
     </div>

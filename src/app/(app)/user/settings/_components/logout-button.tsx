@@ -17,7 +17,7 @@ export default function LogoutButton() {
     }
   };
   return (
-    <ActionButton onClick={handleLogout} className="w-full">
+    <ActionButton onClick={handleLogout} className="w-full rounded-sm">
       <LogOut />
       Log out
     </ActionButton>
