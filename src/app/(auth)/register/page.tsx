@@ -13,6 +13,7 @@ import AuthSeparator from "../_components/auth-separator";
 import OtherAuthOptions from "../_components/other-auth-options";
 import NewHere from "../_components/new-here";
 import { Metadata } from "next";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Register",
@@ -23,8 +24,9 @@ export default async function RegisterPage() {
   const session = await getCurrentSession();
   if (session?.user) redirect("/");
   return (
-    <BeamsBackground>
-      <Card className="absolute top-1/2 left-1/2 w-md -translate-x-1/2 -translate-y-1/2 px-4 py-8">
+    <div className="relative flex min-h-screen w-screen items-center justify-center overflow-hidden">
+      <BeamsBackground className="absolute -z-10" />
+      <Card className={cn("mx-4 w-full max-w-md px-4 py-8")}>
         <CardHeader>
           <CardTitle className="text-xl">Create your account</CardTitle>
           <CardDescription>
@@ -42,6 +44,6 @@ export default async function RegisterPage() {
           />
         </CardContent>
       </Card>
-    </BeamsBackground>
+    </div>
   );
 }
