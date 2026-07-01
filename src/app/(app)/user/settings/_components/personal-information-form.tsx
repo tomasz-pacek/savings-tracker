@@ -94,7 +94,7 @@ export default function PersonalInformationForm({ user }: Props) {
       className="w-full"
       onSubmit={form.handleSubmit(onSubmit)}
     >
-      <FieldGroup className="flex flex-row items-center justify-center">
+      <FieldGroup className="flex flex-col items-center justify-center md:flex-row">
         <Controller
           name="name"
           control={form.control}
@@ -154,10 +154,10 @@ export default function PersonalInformationForm({ user }: Props) {
           </div>
         )}
         <ActionButton
-          pendingText="Saving..."
           isPending={form.formState.isSubmitting}
           disabled={!form.formState.isDirty || form.formState.isSubmitting}
-          className="px-4"
+          className="rounded-sm p-4"
+          loadingSpinner
         >
           Save
         </ActionButton>

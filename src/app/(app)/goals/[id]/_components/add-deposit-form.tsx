@@ -141,8 +141,8 @@ export default function AddDepositForm({ userGoal }: Props) {
       </FieldGroup>
       <ActionButton
         className="mt-4 w-full rounded-sm py-5"
-        pendingText="Adding funds..."
         disabled={watchedAmount > remaining || isCompleted}
+        loadingSpinner
       >
         Add funds
       </ActionButton>

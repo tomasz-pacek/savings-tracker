@@ -23,7 +23,6 @@ import { toast } from "sonner";
 import * as z from "zod";
 
 export default function LoginForm() {
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
   const router = useRouter();
 
@@ -42,14 +41,11 @@ export default function LoginForm() {
         password: data.password,
       },
       {
-        onRequest: () => setIsSubmitting(true),
         onSuccess: () => {
-          setIsSubmitting(false);
           router.push("/");
           toast("User logged in successfully!");
         },
         onError: (ctx) => {
-          setIsSubmitting(false);
           toast(ctx.error.message || "Error logging in user");
         },
       },
@@ -116,9 +112,10 @@ export default function LoginForm() {
       </FieldGroup>
       <ActionButton
         className="mt-6 w-full cursor-pointer rounded-sm py-5 text-base"
-        disabled={isSubmitting}
-        isPending={isSubmitting}
+        disabled={form.formState.isSubmitting}
+        isPending={form.formState.isSubmitting}
         type="submit"
+        loadingSpinner
       >
         Login
       </ActionButton>

@@ -81,7 +81,6 @@ export default function EditGoalForm({
                   aria-invalid={fieldState.invalid}
                   placeholder="MacBook Pro M4"
                   autoComplete="off"
-                  autoFocus
                 />
                 <InputGroupAddon className="pr-2">
                   <Target />
@@ -142,7 +141,12 @@ export default function EditGoalForm({
           )}
         />
       </FieldGroup>
-      <ActionButton className="mt-6 w-full rounded-sm py-5 text-base">
+      <ActionButton
+        className="mt-6 w-full rounded-sm py-5 text-base"
+        isPending={form.formState.isSubmitting}
+        disabled={form.formState.isSubmitting}
+        loadingSpinner
+      >
         Update goal
       </ActionButton>
     </form>

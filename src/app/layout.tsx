@@ -31,7 +31,7 @@ export default function RootLayout({
       className={`${geistSans.className} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="flex min-h-full flex-col">
+      <body className="scrollbar-gutter-stable flex min-h-full flex-col">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

@@ -25,10 +25,23 @@ export default function DeleteGoalDialog() {
     useState<string>("");
   const [isPending, startTransition] = useTransition();
 
+  const handleDeleteGoal = async () => {
+    startTransition(async () => {
+      const result = await deleteGoal(params.id as string);
+
+      if (result.success) {
+        router.push("/");
+        toast("Goal deleted");
+      } else {
+        toast(result.error);
+      }
+    });
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && close()}>
       <DialogContent
-        className="p-8"
+        className="p-5"
         onOpenAutoFocus={(e) => e.preventDefault()}
       >
         <DialogHeader>
@@ -37,10 +50,13 @@ export default function DeleteGoalDialog() {
         <form className="mt-4 flex w-full flex-col items-center justify-center gap-3">
           <Label
             htmlFor="confirmation-input"
-            className="text-muted-foreground w-full whitespace-nowrap"
+            className="text-muted-foreground flex w-full flex-wrap"
           >
-            Type in <span className="text-foreground">&quot;delete&quot;</span>{" "}
-            to permanently delete this goal.{" "}
+            Type in{" "}
+            <span className="text-foreground font-medium">
+              &quot;delete&quot;
+            </span>{" "}
+            to permanently delete this goal.
           </Label>
           <Input
             id="confirmation-input"
@@ -55,22 +71,9 @@ export default function DeleteGoalDialog() {
           <ActionButton
             className="w-full rounded-sm py-5 text-base"
             disabled={confirmationInputValue !== "delete"}
-            pendingText="Deleting..."
+            loadingSpinner
             isPending={isPending}
-            onClick={() => {
-              startTransition(async () => {
-                const result = await deleteGoal(params.id as string);
-
-                if (result.success) {
-                  router.push("/");
-                  toast("Goal deleted.");
-                  //delete dialog close
-                  close();
-                } else {
-                  toast(result.error);
-                }
-              });
-            }}
+            onClick={handleDeleteGoal}
           >
             Delete
           </ActionButton>

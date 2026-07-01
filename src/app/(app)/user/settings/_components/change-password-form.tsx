@@ -188,7 +188,8 @@ export default function ChangePasswordForm() {
           form="change-password-form"
           disabled={!form.formState.isValid}
           type="submit"
-          className="px-4"
+          className="rounded-sm p-4"
+          loadingSpinner
         >
           Save
         </ActionButton>

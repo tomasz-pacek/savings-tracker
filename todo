@@ -1,4 +1,8 @@
 flex view  skeleton
 metadata descriptions
-fill .env google ID's
-add to /login and /register new-here.tsx or smth like this with Already been here? etc.
+
+
+datetime-local input fix for phones
+
+mobile navbar
+

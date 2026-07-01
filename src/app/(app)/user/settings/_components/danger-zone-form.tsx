@@ -10,7 +10,8 @@ export default function DangerZoneForm() {
     <div className="flex w-full items-center justify-start">
       <ActionButton
         variant="destructive"
-        className="font-normal"
+        className="rounded-sm py-5 font-normal"
+        loadingSpinner
         onClick={() => setIsOpen((prev) => !prev)}
       >
         Delete account

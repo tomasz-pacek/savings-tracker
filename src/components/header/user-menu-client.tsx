@@ -41,8 +41,8 @@ export default function UserMenuClient({ session }: Props) {
           <User size={20} />
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuLabel className="text-foreground text-sm">
+      <DropdownMenuContent className="w-fit">
+        <DropdownMenuLabel className="text-foreground text-sm whitespace-nowrap">
           {session.user.name}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />

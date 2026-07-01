@@ -41,7 +41,7 @@ export default function GoalsToolbar({ totalGoalsCount }: Props) {
               size={"sm"}
               isPending={isLoading}
               disabled={isLoading}
-              pendingText="Exporting..."
+              loadingSpinner
               onClick={handleExport}
             >
               Export to CSV

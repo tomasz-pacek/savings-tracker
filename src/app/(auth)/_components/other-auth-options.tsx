@@ -33,7 +33,7 @@ export default function OtherAuthOptions() {
       <ActionButton
         onClick={handleGoogleLogin}
         className="w-full rounded-sm border-none bg-white py-5 text-black hover:bg-white/90"
-        pendingText="Connecting..."
+        loadingSpinner
         isPending={loading}
         disabled={loading}
       >

@@ -90,7 +90,7 @@ export default function GoalsFilterCard({ startTransition }: Props) {
             >
               <X />
             </InputGroupAddon>
-            <InputGroupAddon align={"inline-end"}>
+            <InputGroupAddon align={"inline-end"} className="hidden sm:block">
               <KbdGroup>
                 <Kbd>{isMac ? "⌘" : "Ctrl"}</Kbd>
                 <span>+</span>

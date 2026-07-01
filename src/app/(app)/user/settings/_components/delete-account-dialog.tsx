@@ -98,7 +98,7 @@ export default function DeleteAccountDialog({ isOpen, setIsOpen }: Props) {
             type="submit"
             isPending={isDeleting}
             disabled={isDeleting}
-            pendingText="Deleting..."
+            loadingSpinner
             className="mt-4 w-full"
             variant={"destructive"}
           >

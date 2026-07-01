@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/field";
 import { createGoalFormSchema } from "@/lib/validations/create-goal-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CirclePlus, DollarSign, Target } from "lucide-react";
+import { DollarSign, Target } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 import { toast } from "sonner";
@@ -127,9 +127,9 @@ export default function CreateGoalForm() {
       </FieldGroup>
       <ActionButton
         className="mt-6 w-full rounded-sm py-5 text-base"
-        pendingText="Creating goal..."
+        isPending={form.formState.isSubmitting}
+        loadingSpinner
       >
-        <CirclePlus />
         Create new goal
       </ActionButton>
     </form>

@@ -36,8 +36,6 @@ export default function RegisterForm() {
     }));
   };
 
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-
   const form = useForm<z.infer<typeof registerFormSchema>>({
     resolver: zodResolver(registerFormSchema),
     defaultValues: {
@@ -56,14 +54,11 @@ export default function RegisterForm() {
         password: data.password,
       },
       {
-        onRequest: () => setIsSubmitting(true),
         onSuccess: () => {
-          setIsSubmitting(false);
           router.push("/");
           toast("Account created, verify your email.");
         },
         onError: (ctx) => {
-          setIsSubmitting(false);
           toast(ctx.error.message || "Error registering user");
         },
       },
@@ -182,10 +177,10 @@ export default function RegisterForm() {
       </FieldGroup>
       <ActionButton
         className="mt-6 w-full cursor-pointer rounded-sm py-5 text-base"
-        disabled={isSubmitting}
-        isPending={isSubmitting}
+        disabled={form.formState.isSubmitting}
+        isPending={form.formState.isSubmitting}
         type="submit"
-        pendingText="Registering..."
+        loadingSpinner
       >
         Register
       </ActionButton>

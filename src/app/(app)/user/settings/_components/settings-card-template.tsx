@@ -34,7 +34,7 @@ export default function SettingsCardTemplate({
           </div>
           <div className="flex flex-col justify-center">
             <p className="text-base font-semibold">{heading}</p>
-            <p className="text-muted-foreground text-sm">{description}</p>
+            <p className="text-muted-foreground">{description}</p>
           </div>
         </div>
       </CardHeader>

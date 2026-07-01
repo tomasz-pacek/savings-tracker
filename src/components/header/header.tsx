@@ -3,9 +3,15 @@ import { getCurrentSession } from "@/lib/auth-utils";
 import UserMenuClient from "./user-menu-client";
 import CreateGoalButton from "@/components/shared/create-goal-button";
 import Link from "next/link";
+import { Route } from "next";
 
 export default async function Header() {
   const session = await getCurrentSession();
+
+  const NAV_LINKS: { name: string; href: Route }[] = [
+    { name: "Home", href: "/" },
+    { name: "Goals", href: "/goals" },
+  ];
 
   return (
     <header className="border-border/60 bg-background/80 supports-backdrop-filter:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
@@ -22,18 +28,15 @@ export default async function Header() {
           </Link>
 
           <nav className="hidden items-center gap-1 sm:flex">
-            <Link
-              href="/"
-              className="text-muted-foreground hover:bg-muted hover:text-foreground rounded-md px-3 py-2 text-sm font-medium transition-colors"
-            >
-              Home
-            </Link>
-            <Link
-              href="/goals"
-              className="text-muted-foreground hover:bg-muted hover:text-foreground rounded-md px-3 py-2 text-sm font-medium transition-colors"
-            >
-              Goals
-            </Link>
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className="text-muted-foreground hover:bg-muted hover:text-foreground rounded-md px-3 py-2 text-sm font-medium transition-colors"
+              >
+                {link.name}
+              </Link>
+            ))}
           </nav>
         </div>
 
