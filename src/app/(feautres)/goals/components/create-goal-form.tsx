@@ -114,6 +114,7 @@ export default function CreateGoalForm() {
               </FieldLabel>
               <Input
                 {...field}
+                value={field.value ?? ""}
                 id="create-goal-deadline"
                 aria-invalid={fieldState.invalid}
                 autoComplete="off"

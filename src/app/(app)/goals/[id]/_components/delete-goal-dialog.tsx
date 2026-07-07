@@ -32,6 +32,7 @@ export default function DeleteGoalDialog() {
       if (result.success) {
         router.push("/");
         toast("Goal deleted");
+        close();
       } else {
         toast(result.error);
       }
