@@ -108,19 +108,26 @@ export default function CreateGoalForm() {
           name="deadline"
           control={form.control}
           render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid} className="">
+            <Field data-invalid={fieldState.invalid}>
               <FieldLabel htmlFor="create-goal-deadline">
                 Deadline (optional)
               </FieldLabel>
-              <Input
-                {...field}
-                value={field.value ?? ""}
-                id="create-goal-deadline"
-                aria-invalid={fieldState.invalid}
-                autoComplete="off"
-                type="datetime-local"
-                className="rounded-sm py-5"
-              />
+              <div className="relative w-full min-w-0">
+                <Input
+                  {...field}
+                  value={field.value ?? ""}
+                  id="create-goal-deadline"
+                  aria-invalid={fieldState.invalid}
+                  autoComplete="off"
+                  type="datetime-local"
+                  className="ios-datetime-fix box-border h-10.5 w-full max-w-full min-w-0 rounded-sm py-0 text-base"
+                />
+                {!field.value && (
+                  <span className="text-muted-foreground pointer-events-none absolute inset-y-0 left-3 flex items-center text-base">
+                    dd.mm.rrrr --:--
+                  </span>
+                )}
+              </div>
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}

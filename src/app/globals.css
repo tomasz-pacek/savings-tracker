@@ -137,4 +137,7 @@
   html {
     @apply font-sans;
   }
+  input[type="datetime-local"].ios-datetime-fix {
+    -webkit-min-logical-width: 1px;
+  }
 }
