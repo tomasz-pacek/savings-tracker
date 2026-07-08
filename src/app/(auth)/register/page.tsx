@@ -17,7 +17,8 @@ import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Register",
-  // TODO: `description: ""
+  description:
+    "Create a free account and start managing your finances smarter. Track expenses, plan your budget, and work towards your savings goals.",
 };
 
 export default async function RegisterPage() {

@@ -10,6 +10,8 @@ import ActionsBar from "./_components/actions-bar";
 
 export const metadata: Metadata = {
   title: "Settings",
+  description:
+    "Manage your account settings, and update your profile to personalize your experience.",
 };
 
 export default async function UserSettingsPage() {

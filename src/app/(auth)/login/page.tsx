@@ -13,11 +13,11 @@ import OtherAuthOptions from "../_components/other-auth-options";
 import AuthSeparator from "../_components/auth-separator";
 import NewHere from "../_components/new-here";
 import { Metadata } from "next";
-import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Login",
-  // TODO: description: ""
+  description:
+    "Sign in to your account to manage your budget, track expenses, achieve financial goals, and get a complete overview of your finances.",
 };
 
 export default async function LoginPage() {

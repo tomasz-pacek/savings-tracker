@@ -48,7 +48,6 @@ export default function EditGoalForm({
 
   const onSubmit = async (data: z.infer<typeof createGoalFormSchema>) => {
     const { name, targetAmount, deadline } = data;
-    console.log(data);
 
     const result = await updateGoalDetails(
       params.id as string,

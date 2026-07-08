@@ -138,6 +138,6 @@
     @apply font-sans;
   }
   input[type="datetime-local"].ios-datetime-fix {
-    -webkit-min-logical-width: calc(100% - 2px);
+    -webkit-min-logical-width: 1px;
   }
 }

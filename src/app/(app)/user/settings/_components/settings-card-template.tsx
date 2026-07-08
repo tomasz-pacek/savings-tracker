@@ -26,7 +26,7 @@ export default function SettingsCardTemplate({
         <div className="flex items-center gap-3">
           <div
             className={cn(
-              "flex size-10 items-center justify-center rounded-xl",
+              "flex size-10 shrink-0 items-center justify-center rounded-xl",
               iconWrapperClassName,
             )}
           >

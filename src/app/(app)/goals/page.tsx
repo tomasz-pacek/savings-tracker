@@ -17,7 +17,8 @@ type Props = {
 
 export const metadata: Metadata = {
   title: "Goals",
-  //TODO: description: "",
+  description:
+    "Create financial goals, track your savings progress, and stay focused on achieving your plans with simple and effective goal management.",
 };
 const progressExpression = sql`(${goal.currentAmount}::float / NULLIF(${goal.targetAmount}, 0))`;
 const ORDER_MAP = {
