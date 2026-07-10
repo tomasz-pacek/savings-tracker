@@ -36,7 +36,7 @@ export default async function Dashboard({ userGoals, goalsCount }: Props) {
           <DashbaordGoalGrid userGoals={userGoals} />
           {userGoals.length > 8 && (
             <div className="mt-6 flex w-full items-center justify-center">
-              <Button asChild variant="outline">
+              <Button asChild variant="outline" className="rounded-sm py-4">
                 <Link href={"/goals"}>See more goals</Link>
               </Button>
             </div>

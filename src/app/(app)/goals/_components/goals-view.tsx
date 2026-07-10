@@ -44,7 +44,7 @@ export default function GoalsView({ goals, isPending }: Props) {
   }
 
   return (
-    <div className="w-full flex-1">
+    <div className="w-full">
       {view === "grid" ? (
         <GoalsGridView goals={goals} />
       ) : (

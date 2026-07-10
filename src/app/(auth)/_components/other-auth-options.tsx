@@ -5,6 +5,7 @@ import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { toast } from "sonner";
+import LastUsedBadge from "../login/_components/last-used-badge";
 
 export default function OtherAuthOptions() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -28,17 +29,23 @@ export default function OtherAuthOptions() {
       },
     );
   };
+  const lastLoginMethod = authClient.getLastUsedLoginMethod();
   return (
     <div className="w-full">
       <ActionButton
         onClick={handleGoogleLogin}
-        className="w-full rounded-sm border-none bg-white py-5 text-black hover:bg-white/90"
+        className="relative w-full rounded-sm border-none bg-white py-5 text-black hover:bg-white/90"
         loadingSpinner
         isPending={loading}
         disabled={loading}
       >
         <FaGoogle />
         Login with Google
+        {lastLoginMethod === "google" && (
+          <div className="absolute -top-3 -right-3">
+            <LastUsedBadge />
+          </div>
+        )}
       </ActionButton>
     </div>
   );

@@ -2,6 +2,7 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "../db/index";
 import { nextCookies } from "better-auth/next-js";
+import { lastLoginMethod } from "better-auth/plugins";
 import * as schema from "../db/schema";
 
 export const auth = betterAuth({
@@ -24,5 +25,5 @@ export const auth = betterAuth({
       enabled: true,
     },
   },
-  plugins: [nextCookies()],
+  plugins: [nextCookies(), lastLoginMethod()],
 });

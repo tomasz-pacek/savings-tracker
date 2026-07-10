@@ -47,7 +47,7 @@ export default function UserMenuClient({
     return (
       <Link
         className={cn(
-          "bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-medium transition-colors",
+          "bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-4 py-1 text-sm font-medium transition-colors",
           isMobile && "w-full",
         )}
         href="/login"

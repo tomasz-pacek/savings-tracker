@@ -6,6 +6,7 @@ import { useTransition } from "react";
 import GoalsFilterCard from "./goals-filter-card";
 import GoalsPagination from "./goals-pagination";
 import GoalsToolbar from "./goals-toolbar";
+import SearchDialog from "./dialog/search-dialog";
 
 type Props = {
   goals: Goal[];
@@ -28,6 +29,7 @@ export default function GoalsPageClient({
       <GoalsFilterCard startTransition={startTransition} />
       <GoalsView goals={goals} isPending={isPending} />
       <GoalsPagination currentPage={currentPage} totalPages={totalPages} />
+      <SearchDialog startTransition={startTransition} />
     </main>
   );
 }
