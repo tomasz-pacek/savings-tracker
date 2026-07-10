@@ -41,21 +41,21 @@ export default function UsernameChangeForm({ user }: Props) {
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     const { name } = data;
-    try {
-      await updateUsernameAction(name);
-      toast("You have changed you username");
-      router.refresh();
-      form.reset({ name });
-    } catch (error) {
-      const message =
-        error instanceof Error ? error.message : "Something went wrong";
-      toast(message);
 
+    const result = await updateUsernameAction(name);
+
+    if (!result.success) {
+      toast(result.message || "Something went wrong");
       form.setError("name", {
         type: "server",
-        message,
+        message: result.message,
       });
+      return;
     }
+
+    toast("You have changed you username");
+    router.refresh();
+    form.reset({ name });
   };
 
   return (
@@ -88,7 +88,7 @@ export default function UsernameChangeForm({ user }: Props) {
           )}
         />
       </FieldGroup>
-      <div className="j mt-4 flex items-center">
+      <div className="mt-4 flex items-center">
         <ActionButton
           isPending={form.formState.isSubmitting}
           disabled={!form.formState.isDirty || form.formState.isSubmitting}

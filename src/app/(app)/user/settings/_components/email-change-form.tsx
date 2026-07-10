@@ -41,21 +41,19 @@ export default function EmailChangeForm({ user }: Props) {
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     const { email } = data;
-    try {
-      await changeEmailAction(email);
-      toast("You have changed your email");
-      router.refresh();
-      form.reset(data);
-    } catch (error) {
-      const message =
-        error instanceof Error ? error.message : "Someting went wrong";
-      toast(message);
+    const result = await changeEmailAction(email);
 
+    if (!result.success) {
+      toast(result.message || "Something went wrong");
       form.setError("email", {
         type: "server",
-        message,
+        message: result.message,
       });
     }
+
+    toast("You have changed your email");
+    router.refresh();
+    form.reset(data);
   };
 
   return (

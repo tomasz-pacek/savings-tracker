@@ -11,15 +11,15 @@ import { headers } from "next/headers";
 
 export const changeEmailAction = async (newEmail: string) => {
   const session = await getCurrentSession();
-  if (!session) {
-    throw new Error("Unathorized");
-  }
+  if (!session) return { success: false, message: "Unathorized" };
 
   const limit = await emailChangeLimiter.limit(`email:${session.user.id}`);
 
-  if (!limit.success) {
-    throw new Error("You can change email only 3 times per hour");
-  }
+  if (!limit.success)
+    return {
+      success: false,
+      message: "You can change email only 3 times per hour",
+    };
 
   await auth.api.changeEmail({
     body: {
@@ -35,17 +35,17 @@ export const changeEmailAction = async (newEmail: string) => {
 
 export const updateUsernameAction = async (newUsername: string) => {
   const session = await getCurrentSession();
-  if (!session) {
-    throw new Error("Unathorized");
-  }
+  if (!session) return { success: false, message: "Unathorized" };
 
   const limit = await usernameUpdateLimiter.limit(
     `username:${session.user.id}`,
   );
 
-  if (!limit.success) {
-    throw new Error("You can change username only 3 times per 5 minutes");
-  }
+  if (!limit.success)
+    return {
+      success: false,
+      message: "You can change username only 3 times per 5 minutes",
+    };
 
   await auth.api.updateUser({
     body: {
