@@ -2,7 +2,7 @@
 
 <h2>Features</h2>
 <ul>
-  <li>Implemented user authentication using Better-Auth</li>
+  <li>Implemented user authentication using Better-Auth with last used login method</li>
   <li>Implemented rate limiting using Redis to protect API endpoints from excessive requests</li>
   <li>Built full CRUD functionality for savings goals (name, target amount, optional deadline) with client-side form validation</li>
   <li>Implemented a deposit system with full transaction history per goal (amount + optional note)</li>
