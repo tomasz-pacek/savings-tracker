@@ -2,11 +2,12 @@ import { getCurrentSession } from "@/lib/auth-utils";
 import { redirect } from "next/navigation";
 import SettingsCardTemplate from "./_components/settings-card-template";
 import { Lock, TriangleAlert, User } from "lucide-react";
-import PersonalInformationForm from "./_components/personal-information-form";
 import ChangePasswordForm from "./_components/change-password-form";
 import DangerZoneForm from "./_components/danger-zone-form";
 import { Metadata } from "next";
 import ActionsBar from "./_components/actions-bar";
+import UsernameChangeForm from "./_components/username-change-form";
+import EmailChangeForm from "./_components/email-change-form";
 
 export const metadata: Metadata = {
   title: "Settings",
@@ -28,7 +29,10 @@ export default async function UserSettingsPage() {
           heading="Personal Information"
           description="Manage your name and email"
         >
-          <PersonalInformationForm user={session.user} />
+          <div className="flex w-full items-center justify-center gap-4">
+            <UsernameChangeForm user={session.user} />
+            <EmailChangeForm user={session.user} />
+          </div>
         </SettingsCardTemplate>
         <SettingsCardTemplate
           icon={Lock}
