@@ -1,7 +1,6 @@
 "use client";
 
 import ActionButton from "@/components/shared/action-button";
-import { Badge } from "@/components/ui/badge";
 import {
   Field,
   FieldError,
@@ -55,7 +54,6 @@ export default function LoginForm() {
   };
 
   const lastLoginMethod = authClient.getLastUsedLoginMethod();
-  console.log(lastLoginMethod);
 
   return (
     <form id="login-form" onSubmit={form.handleSubmit(onSubmit)}>

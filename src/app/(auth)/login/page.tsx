@@ -1,6 +1,5 @@
 import { getCurrentSession } from "@/lib/auth-utils";
 import { redirect } from "next/navigation";
-import BeamsBackground from "../_components/background-beam";
 import {
   Card,
   CardContent,
@@ -25,8 +24,7 @@ export default async function LoginPage() {
   if (session?.user) redirect("/");
   return (
     <div className="relative flex min-h-screen w-screen items-center justify-center overflow-hidden">
-      <BeamsBackground className="absolute -z-10" />
-      <Card className="- mx-4 w-full max-w-md px-4 py-8">
+      <Card className="mx-4 w-full max-w-md px-4 py-8">
         <CardHeader>
           <CardTitle className="text-xl">Welcome back</CardTitle>
           <CardDescription>

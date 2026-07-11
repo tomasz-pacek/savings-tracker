@@ -14,6 +14,9 @@ export const auth = betterAuth({
     enabled: true,
     autoSignIn: true,
   },
+  rateLimit: {
+    enabled: true,
+  },
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID as string,
