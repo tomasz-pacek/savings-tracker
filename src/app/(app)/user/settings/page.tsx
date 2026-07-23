@@ -8,6 +8,7 @@ import { Metadata } from "next";
 import ActionsBar from "./_components/actions-bar";
 import UsernameChangeForm from "./_components/username-change-form";
 import EmailChangeForm from "./_components/email-change-form";
+import HeaderServer from "@/components/header/header-server";
 
 export const metadata: Metadata = {
   title: "Settings",
@@ -21,36 +22,39 @@ export default async function UserSettingsPage() {
   if (!session) redirect("/");
 
   return (
-    <main className="container mx-auto mt-6 px-4">
-      <ActionsBar />
-      <div className="w-full space-y-6">
-        <SettingsCardTemplate
-          icon={User}
-          heading="Personal Information"
-          description="Manage your name and email"
-        >
-          <div className="flex w-full items-center justify-center gap-4">
-            <UsernameChangeForm user={session.user} />
-            <EmailChangeForm user={session.user} />
-          </div>
-        </SettingsCardTemplate>
-        <SettingsCardTemplate
-          icon={Lock}
-          heading="Change Password"
-          description="Update your account password"
-        >
-          <ChangePasswordForm />
-        </SettingsCardTemplate>
-        <SettingsCardTemplate
-          icon={TriangleAlert}
-          heading="Danger Zone"
-          description="After deleting your account all data will be permanently deleted. This operation can't be undone."
-          iconWrapperClassName="bg-destructive/15"
-          iconClassName="text-destructive"
-        >
-          <DangerZoneForm />
-        </SettingsCardTemplate>
-      </div>
-    </main>
+    <div className="flex min-h-screen flex-col">
+      <HeaderServer />
+      <main className="container mx-auto mt-6 px-4">
+        <ActionsBar />
+        <div className="w-full space-y-6">
+          <SettingsCardTemplate
+            icon={User}
+            heading="Personal Information"
+            description="Manage your name and email"
+          >
+            <div className="flex w-full items-center justify-center gap-4">
+              <UsernameChangeForm user={session.user} />
+              <EmailChangeForm user={session.user} />
+            </div>
+          </SettingsCardTemplate>
+          <SettingsCardTemplate
+            icon={Lock}
+            heading="Change Password"
+            description="Update your account password"
+          >
+            <ChangePasswordForm />
+          </SettingsCardTemplate>
+          <SettingsCardTemplate
+            icon={TriangleAlert}
+            heading="Danger Zone"
+            description="After deleting your account all data will be permanently deleted. This operation can't be undone."
+            iconWrapperClassName="bg-destructive/15"
+            iconClassName="text-destructive"
+          >
+            <DangerZoneForm />
+          </SettingsCardTemplate>
+        </div>
+      </main>
+    </div>
   );
 }

@@ -6,6 +6,7 @@ import {
   boolean,
   index,
   integer,
+  pgEnum,
 } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
@@ -107,17 +108,61 @@ export const goalDeposits = pgTable("goal_deposits", {
     .references(() => user.id, { onDelete: "cascade" }),
   goalId: text("goal_id")
     .notNull()
-    .references(() => goal.id),
+    .references(() => goal.id, { onDelete: "cascade" }),
   amount: integer("amount").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   description: text("description"),
 });
+
+export const chat = pgTable(
+  "chat",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+
+    title: text("title").notNull().default("New chat"),
+
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+
+    updatedAt: timestamp("updated_at")
+      .defaultNow()
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [index("chat_userId_idx").on(table.userId)],
+);
+
+export const chatRole = pgEnum("chat_role", ["user", "assistant"]);
+
+export const chatMessage = pgTable(
+  "chat_message",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+
+    chatId: text("chat_id")
+      .notNull()
+      .references(() => chat.id, { onDelete: "cascade" }),
+
+    role: chatRole("role").notNull(),
+    content: text("content").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (table) => [index("chatMessage_chatId_idx").on(table.chatId)],
+);
 
 export const userRelations = relations(user, ({ many }) => ({
   sessions: many(session),
   accounts: many(account),
   goals: many(goal),
   deposits: many(goalDeposits),
+  chats: many(chat),
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({
@@ -154,4 +199,20 @@ export const goalDepositsRelations = relations(goalDeposits, ({ one }) => ({
   }),
 }));
 
+export const chatRelations = relations(chat, ({ one, many }) => ({
+  user: one(user, {
+    fields: [chat.userId],
+    references: [user.id],
+  }),
+  messages: many(chatMessage),
+}));
+
+export const chatMessageRelations = relations(chatMessage, ({ one }) => ({
+  chat: one(chat, {
+    fields: [chatMessage.chatId],
+    references: [chat.id],
+  }),
+}));
+
 export type Goal = InferSelectModel<typeof goal>;
+export type UserChat = typeof chat.$inferSelect;
