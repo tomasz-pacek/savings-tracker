@@ -1,25 +1,29 @@
 "use server";
 
 import { db } from "@/db";
-import { chat } from "@/db/schema";
+import { chat, chatMessage } from "@/db/schema";
 import { getCurrentSession } from "@/lib/auth-utils";
+import { Route } from "next";
+import { redirect } from "next/navigation";
 
-export const createChat = async () => {
+export const startChat = async (firstMessage: string) => {
   const session = await getCurrentSession();
-
-  if (!session) {
-    return { success: false, error: "Unathorized" };
-  }
+  if (!session) return { success: false, message: "Unathorized" };
+  const userId = session.user.id;
 
   const [newChat] = await db
     .insert(chat)
     .values({
-      userId: session.user.id,
-      title: "New chat",
+      userId,
+      title: firstMessage.slice(0, 50),
     })
-    .returning({
-      id: chat.id,
-    });
+    .returning();
 
-  return newChat.id;
+  await db.insert(chatMessage).values({
+    chatId: newChat.id,
+    role: "user",
+    content: firstMessage,
+  });
+
+  redirect(`/user/chat/${newChat.id}` as Route);
 };
