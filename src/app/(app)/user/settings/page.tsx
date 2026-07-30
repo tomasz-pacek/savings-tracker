@@ -32,7 +32,7 @@ export default async function UserSettingsPage() {
             heading="Personal Information"
             description="Manage your name and email"
           >
-            <div className="flex w-full items-center justify-center gap-4">
+            <div className="flex w-full flex-col items-center justify-center gap-4 sm:flex-row">
               <UsernameChangeForm user={session.user} />
               <EmailChangeForm user={session.user} />
             </div>

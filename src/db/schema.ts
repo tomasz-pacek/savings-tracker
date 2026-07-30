@@ -215,4 +215,5 @@ export const chatMessageRelations = relations(chatMessage, ({ one }) => ({
 }));
 
 export type Goal = InferSelectModel<typeof goal>;
+export type Chat = InferSelectModel<typeof chat>;
 export type UserChat = typeof chat.$inferSelect;
