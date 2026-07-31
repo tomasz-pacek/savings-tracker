@@ -1,14 +1,14 @@
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { ChatSidebar } from "./_components/chat-sidebar";
 
 type Props = {
   children: React.ReactNode;
+  sidebar: React.ReactNode;
 };
 
-export default function Layout({ children }: Props) {
+export default function Layout({ children, sidebar }: Props) {
   return (
     <SidebarProvider>
-      <ChatSidebar />
+      {sidebar}
       <main className="flex w-full flex-1 flex-col items-center justify-center">
         {children}
       </main>

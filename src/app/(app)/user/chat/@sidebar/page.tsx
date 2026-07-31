@@ -8,19 +8,28 @@ import {
 import { db } from "@/db";
 import { chat } from "@/db/schema";
 import { getCurrentSession } from "@/lib/auth-utils";
-import { desc, eq } from "drizzle-orm";
+import { desc, eq, and, ilike } from "drizzle-orm";
 import { notFound } from "next/navigation";
-import SidebarNewChatButton from "./sidebar-new-chat-button";
-import RecentChats from "./recent-chats";
+import SidebarNewChatButton from "../_components/sidebar-new-chat-button";
+import SidebarChatSearch from "../_components/sidebar-chat-search";
+import RecentChats from "../_components/recent-chats";
 
-export async function ChatSidebar() {
+type Props = {
+  searchParams: Promise<{ chatSearch?: string }>;
+};
+
+export default async function ChatSidebar({ searchParams }: Props) {
   const session = await getCurrentSession();
   if (!session) return notFound();
   const userId = session.user.id;
+
+  const params = (await searchParams) || {};
+  const chatSearch = params.chatSearch ?? "";
+
   const chats = await db
     .select()
     .from(chat)
-    .where(eq(chat.userId, userId))
+    .where(and(eq(chat.userId, userId), ilike(chat.title, `%${chatSearch}%`)))
     .orderBy(desc(chat.createdAt));
   return (
     <Sidebar collapsible="icon">
@@ -30,6 +39,7 @@ export async function ChatSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarNewChatButton />
+        <SidebarChatSearch />
         <RecentChats chats={chats} />
       </SidebarContent>
       <SidebarFooter />

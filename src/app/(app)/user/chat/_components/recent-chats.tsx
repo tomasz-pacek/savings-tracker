@@ -13,7 +13,7 @@ import { Chat } from "@/db/schema";
 import { MessageCircle } from "lucide-react";
 import { Route } from "next";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 type Props = {
   chats: Chat[];
@@ -22,6 +22,8 @@ type Props = {
 export default function RecentChats({ chats }: Props) {
   const { state, toggleSidebar } = useSidebar();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const chatSearch = searchParams.get("chatSearch") ?? "";
   const activeChatId = pathname.startsWith("/user/chat/")
     ? pathname.split("/user/chat/")[1]
     : null;
@@ -40,7 +42,9 @@ export default function RecentChats({ chats }: Props) {
 
   return (
     <SidebarGroup className="overflow-y-auto">
-      <SidebarGroupLabel>RECENT</SidebarGroupLabel>
+      <SidebarGroupLabel>
+        {chatSearch?.length > 0 ? "SEARCH" : "RECENT"}
+      </SidebarGroupLabel>
       <SidebarGroupContent>
         <SidebarMenu className="space-y-1">
           {chats.map((chat) => (
