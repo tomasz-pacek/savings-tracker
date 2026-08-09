@@ -12,6 +12,11 @@
   <li>Responsive UI with TailwindCSS</li>
 </ul>
 
+<h2>Currently Working On</h2>
+<ul>
+  <li>AI-powered chat assistant with tools for managing and analyzing savings goals</li>
+</ul>
+
 <h2>Live Preview</h2>
 <a href="https://savings-tracker-two-alpha.vercel.app" target="_blank">Savings Tracker</a>
 
