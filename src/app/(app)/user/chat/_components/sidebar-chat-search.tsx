@@ -11,27 +11,20 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { Search } from "lucide-react";
-import { useQueryState } from "nuqs";
+import { SetStateAction } from "react";
 
-export default function SidebarChatSearch() {
+type Props = {
+  search: string;
+  setSearch: React.Dispatch<SetStateAction<string>>;
+};
+
+export default function SidebarChatSearch({ search, setSearch }: Props) {
   const { state, toggleSidebar } = useSidebar();
-  const isCollapsed = state === "collapsed";
-
   const handleOpenSidebar = () => {
-    if (isCollapsed) {
+    if (state === "collapsed") {
       toggleSidebar();
     }
   };
-
-  const [chatSearch, setChatSearch] = useQueryState("chatSearch", {
-    defaultValue: "",
-    shallow: false,
-    limitUrlUpdates: {
-      method: "debounce",
-      timeMs: 500,
-    },
-  });
-
   return (
     <SidebarGroup>
       <SidebarGroupContent className="flex items-center justify-center">
@@ -41,8 +34,8 @@ export default function SidebarChatSearch() {
         >
           <InputGroupInput
             placeholder="Search your chats..."
-            value={chatSearch}
-            onChange={(e) => setChatSearch(e.target.value)}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
           />
           <InputGroupAddon className="pr-2">
             <Search />
