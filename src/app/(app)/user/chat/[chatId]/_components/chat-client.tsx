@@ -25,12 +25,13 @@ export default function ChatClient({
 }: Props) {
   const [input, setInput] = useState<string>("");
 
-  const { messages, sendMessage, status, regenerate } = useChat({
+  const { messages, sendMessage, status, regenerate, error } = useChat({
     id: chatId,
     messages: initialMessages,
     transport: new DefaultChatTransport({ api: `/api/chat/${chatId}` }),
   });
-  const isBusy = status !== "ready";
+  const isBusy = status !== "ready" && status !== "error";
+  console.log("AI STATUS", status);
 
   const triggered = useRef(false);
   useEffect(() => {
@@ -50,6 +51,7 @@ export default function ChatClient({
   return (
     <div className="flex h-svh w-full flex-col items-center justify-center">
       <MessagesView messages={messages} />
+      {error && <div>Something went wrong</div>}
       <form onSubmit={onSubmit} className="mb-12 w-1/2 shrink-0">
         <InputGroup className="rounded-sm py-6">
           <InputGroupInput

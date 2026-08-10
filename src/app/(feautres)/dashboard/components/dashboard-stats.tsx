@@ -1,8 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { db } from "@/db";
-import { goal } from "@/db/schema";
+import { getCompletedGoals } from "@/db/queries";
 import { getCurrentSession } from "@/lib/auth-utils";
-import { and, count, eq, gte } from "drizzle-orm";
+import { redirect } from "next/navigation";
 
 type Props = {
   goalsCount: number;
@@ -14,37 +13,28 @@ export default async function DashboardStats({
   userTotalSavingsValue,
 }: Props) {
   const session = await getCurrentSession();
-  if (!session?.user.id) return <div>No user</div>;
+  if (!session?.user.id) redirect("/login");
 
-  const completedGoals = await db
-    .select({ count: count() })
-    .from(goal)
-    .where(
-      and(
-        eq(goal.userId, session.user.id),
-        gte(goal.currentAmount, goal.targetAmount),
-      ),
-    )
-    .then((rows) => rows[0]);
+  const completedGoals = await getCompletedGoals(session.user.id);
 
   return (
-    <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+    <div className="mb-8 grid w-full grid-cols-1 gap-4 md:grid-cols-4">
       <Card className="bg-primary text-primary-foreground border-0 sm:col-span-2">
-        <CardContent className="flex flex-col justify-between h-full gap-4">
-          <p className="text-sm mb-1 font-medium">Total savings</p>
+        <CardContent className="flex h-full flex-col justify-between gap-4">
+          <p className="mb-1 text-sm font-medium">Total savings</p>
           <p className="text-4xl font-bold">{userTotalSavingsValue}$</p>
         </CardContent>
       </Card>
       <Card>
-        <CardContent className="flex flex-col justify-between h-full gap-4">
-          <p className="text-sm mb-1 font-medium">Active goals</p>
-          <p className="text-4xl font-bold text-primary">{goalsCount}</p>
+        <CardContent className="flex h-full flex-col justify-between gap-4">
+          <p className="mb-1 text-sm font-medium">Active goals</p>
+          <p className="text-primary text-4xl font-bold">{goalsCount}</p>
         </CardContent>
       </Card>
       <Card>
-        <CardContent className="flex flex-col justify-between h-full gap-4">
-          <p className="text-sm mb-1 font-medium">Goals completed</p>
-          <p className="text-4xl font-bold text-success">
+        <CardContent className="flex h-full flex-col justify-between gap-4">
+          <p className="mb-1 text-sm font-medium">Goals completed</p>
+          <p className="text-success text-4xl font-bold">
             {completedGoals.count}
           </p>
         </CardContent>

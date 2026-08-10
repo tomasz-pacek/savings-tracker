@@ -1,19 +1,16 @@
-import { db } from "@/db";
 import { getCurrentSession } from "@/lib/auth-utils";
-import { goal } from "@/db/schema";
-import { eq } from "drizzle-orm";
 import Dashboard from "./dashboard";
 import EmptyDashboard from "./empty-dashboard";
+import { redirect } from "next/navigation";
+import { getUserGoals } from "@/db/queries";
 
 export default async function DashboardContent() {
   const session = await getCurrentSession();
   const userId = session?.user.id;
 
-  if (!userId) {
-    return <div>No user</div>;
-  }
+  if (!userId) redirect("/login");
 
-  const userGoals = await db.select().from(goal).where(eq(goal.userId, userId));
+  const userGoals = await getUserGoals(userId);
 
   return (
     <>

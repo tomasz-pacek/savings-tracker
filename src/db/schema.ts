@@ -138,6 +138,11 @@ export const chat = pgTable(
 );
 
 export const chatRole = pgEnum("chat_role", ["user", "assistant"]);
+export const generationStatusEnum = pgEnum("generation_status", [
+  "pending",
+  "completed",
+  "error",
+]);
 
 export const chatMessage = pgTable(
   "chat_message",
@@ -152,6 +157,9 @@ export const chatMessage = pgTable(
 
     role: chatRole("role").notNull(),
     content: text("content").notNull(),
+    generationStatus: generationStatusEnum("generation_status")
+      .notNull()
+      .default("completed"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (table) => [index("chatMessage_chatId_idx").on(table.chatId)],

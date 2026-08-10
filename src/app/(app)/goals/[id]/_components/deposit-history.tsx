@@ -1,9 +1,8 @@
-import { db } from "@/db";
-import { goalDeposits } from "@/db/schema";
+import { getUserDeposits } from "@/db/queries";
 import { getCurrentSession } from "@/lib/auth-utils";
 import { formatTimestampDate } from "@/lib/format-timestamp-date";
-import { and, desc, eq } from "drizzle-orm";
 import { ArrowDown } from "lucide-react";
+import { redirect } from "next/navigation";
 
 type Props = {
   goalId: string;
@@ -12,20 +11,9 @@ type Props = {
 export default async function DepositHistory({ goalId }: Props) {
   const session = await getCurrentSession();
 
-  if (!session) {
-    return <div>No user logged in</div>;
-  }
+  if (!session) redirect("/login");
 
-  const deposits = await db
-    .select()
-    .from(goalDeposits)
-    .where(
-      and(
-        eq(goalDeposits.userId, session.user.id),
-        eq(goalDeposits.goalId, goalId),
-      ),
-    )
-    .orderBy(desc(goalDeposits.createdAt));
+  const deposits = await getUserDeposits(session.user.id, goalId);
 
   return (
     <div className="mt-6 flex flex-col items-center justify-center">
